@@ -3,6 +3,7 @@ const webpack = require('webpack'); //to access built-in plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //installed via npm
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv');
+const npm_package = require('./package.json');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
@@ -59,8 +60,15 @@ module.exports = (env, argv) => {
 
 
 
+  const resolve = {
+    root: __dirname,
+    alias: npm_package._moduleAliases || {},
+    modules: npm_package._moduleDirectories || [] // eg: ["node_modules", "node_modules_custom", "src"]
+  };
+
   const baseConfig = {
     //mode: 'production',
+    resolve,
     module: {
         rules: [
             { test: /\.txt$/, use: 'raw-loader' },
@@ -135,7 +143,7 @@ module.exports = (env, argv) => {
 
   const inlineConfig = Object.assign({}, baseConfig, {
     entry: {
-      form: './src/form/inline.js'
+      form: './dev/form/inline.js'
     },
     output: {
       path: path.resolve(__dirname, './dist'),
@@ -147,7 +155,7 @@ module.exports = (env, argv) => {
 
   const dialogConfig = Object.assign({}, baseConfig, {
     entry: {
-      form: './src/form/dialog.js'
+      form: './dev/form/dialog.js'
     },
     output: {
       path: path.resolve(__dirname, './dist'),
@@ -161,7 +169,7 @@ module.exports = (env, argv) => {
   // the app lazy loaded in various methods withe fyneUI
   const fyneConfig = Object.assign({}, baseConfig, {
     entry: {
-      main: './src/fyne/index.js'
+      main: './dev/fyne/index.js'
     },
     output: {
       path: path.resolve(__dirname, './dist'),
@@ -170,10 +178,10 @@ module.exports = (env, argv) => {
     plugins: []
       .concat([new CleanWebpackPlugin()])
       .concat(commonPlugins)
-      .concat([new HtmlWebpackPlugin({ filename: 'index.html', template: './src/index.html'})])
-      .concat([new HtmlWebpackPlugin({ filename: 'dialog.html', template: './src/form/dialog.html'})])
-      .concat([new HtmlWebpackPlugin({ filename: 'inline.html', template: './src/form/inline.html' })])
-      .concat([new HtmlWebpackPlugin({ filename: 'dynamic.html', template: './src/form/dynamic.html' })])
+      .concat([new HtmlWebpackPlugin({ filename: 'index.html', template: './dev/index.html'})])
+      .concat([new HtmlWebpackPlugin({ filename: 'dialog.html', template: './dev/form/dialog.html'})])
+      .concat([new HtmlWebpackPlugin({ filename: 'inline.html', template: './dev/form/inline.html' })])
+      .concat([new HtmlWebpackPlugin({ filename: 'dynamic.html', template: './dev/form/dynamic.html' })])
       .concat([new CopyWebpackPlugin([{ from: 'favicon' }]),])
       .concat([new CopyWebpackPlugin([{ from: 'static' }]),])
     ,
@@ -204,7 +212,7 @@ module.exports = (env, argv) => {
   // the app bundle including fyneUI integration
   const directConfig = Object.assign({}, baseConfig, {
     entry: {
-      form: './src/form/direct.js'
+      form: './dev/form/direct.js'
     },
     output: {
       path: path.resolve(__dirname, './dist'),
@@ -212,14 +220,14 @@ module.exports = (env, argv) => {
     },
     plugins: []
     .concat(commonPlugins)
-    .concat([new HtmlWebpackPlugin({ filename: 'direct.html', template: './src/form/direct.html'})])
+    .concat([new HtmlWebpackPlugin({ filename: 'direct.html', template: './dev/form/direct.html'})])
   });
 
   
   // the app without fyneUI integration
   const plainConfig = Object.assign({}, baseConfig, {
     entry: {
-      form: './src/form/plain.js'
+      form: './dev/form/plain.js'
     },
     output: {
       path: path.resolve(__dirname, './dist'),
@@ -227,7 +235,7 @@ module.exports = (env, argv) => {
     },
     plugins: []
     .concat(commonPlugins)
-    .concat([new HtmlWebpackPlugin({ filename: 'plain.html', template: './src/form/plain.html'})])
+    .concat([new HtmlWebpackPlugin({ filename: 'plain.html', template: './dev/form/plain.html'})])
   });
 
 

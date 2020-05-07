@@ -2,7 +2,7 @@
 //const BASE_PATH = process.env.PATH || script.src_path || './';
 //console.log('fwxfrm factory process.env', {BASE_PATH, env:process.env, script, process})
 
-import { context } from './../fyneworks';
+import { context } from '@fyne/ui';
 console.log('fwxfrm factory context', context);
 
 
