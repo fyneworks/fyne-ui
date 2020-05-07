@@ -6,7 +6,7 @@ import { Endpoint } from './network';
 import { context } from './context';
 
 export const FyneFormAPI = (func) => {
-      console.log('FyneFormAPI', {func});
+      //console.log('FyneFormAPI', {func});
 
       const base = context.API_BASE;
       const url = (base || '') + func;
@@ -49,20 +49,20 @@ export const useFyneForm = (instanceId, {
     //const [ errors, setErrors ] = React.useState({});
 
 	//const _setData = useCallback(newData=> {
-	//	console.log('useFyneForm setData', newData)
+	//	//console.log('useFyneForm setData', newData)
 	//	setData(newData);
 	//});
 	//const _setValid = useCallback(newValid=> {
-	//	console.log('useFyneForm setValid', newValid)
+	//	//console.log('useFyneForm setValid', newValid)
 	//	setValid(newValid);
 	//});
 	//const _setErrors = useCallback(newErrors=> {
-	//	console.log('useFyneForm setErrors', newErrors)
+	//	//console.log('useFyneForm setErrors', newErrors)
 	//	setErrors(newErrors);
 	//});
 
 	const sync = useCallback(({...state})=> {
-		console.log('useFyneForm sync', state)
+		//console.log('useFyneForm sync', state)
 		setState(state);
 		//setData(state.data);
 		//setErrors(state.errors);
@@ -70,7 +70,7 @@ export const useFyneForm = (instanceId, {
 	});
 
     const FyneForm = useCallback(({...moreprops})=> {
-		console.log("Fyne Form render in", {state,moreprops,Form})
+		//console.log("Fyne Form render in", {state,moreprops,Form})
 
 		return (
 			<Form 

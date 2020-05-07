@@ -43,14 +43,14 @@ export const headers = ({method, url})=> {
 
 
 export const request = (url, {method = GET, body = null, query = {}, ...options}) => {
-    console.log('Fyne request', {url, method, body, options});
+    //console.log('Fyne request', {url, method, body, options});
 
     return new Promise((resolve,reject)=>{
 
         const queryStr = query && serialize(query);
         const endpoint = query ? url +'?'+ queryStr : url;
 
-        console.log('Fyne request fetch', {url, method, body, options, queryStr, endpoint});
+        //console.log('Fyne request fetch', {url, method, body, options, queryStr, endpoint});
 
         fetch(
             endpoint,
@@ -70,7 +70,7 @@ export const request = (url, {method = GET, body = null, query = {}, ...options}
         )
         .then(res=>res.json())
         .then(res=>{
-            console.log('Fyne request resp!', res, {url, method, body, options, queryStr, endpoint});
+            //console.log('Fyne request resp!', res, {url, method, body, options, queryStr, endpoint});
             
             resolve(res); //({ status:200,success:true,error:null});
         })

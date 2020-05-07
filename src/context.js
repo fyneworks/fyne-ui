@@ -1,11 +1,11 @@
 import React from 'react';
-import { camelCase } from "change-case";
+import { camelCase, paramCase } from "change-case";
 
 import { script } from  './helpers/currentScript';
-console.log('FYNEWORKS CONTEXT', {a:process.env.PATH,b:script.src_path,s:script,env:process.env})
-console.log('FYNEWORKS CONTEXT process.env.PATH', process.env.PATH)
-console.log('FYNEWORKS CONTEXT script.src_path', script.src_path)
-console.log('FYNEWORKS CONTEXT process.env', process.env)
+//console.log('FYNEWORKS CONTEXT', {a:process.env.PATH,b:script.src_path,s:script,env:process.env})
+//console.log('FYNEWORKS CONTEXT process.env.PATH', process.env.PATH)
+//console.log('FYNEWORKS CONTEXT script.src_path', script.src_path)
+//console.log('FYNEWORKS CONTEXT process.env', process.env)
 const APP_BASE = script.src_path || process.env.PATH || './';
 
 export const EnvironmentConstants = () => {
@@ -20,7 +20,7 @@ export const EnvironmentConstants = () => {
 export const environment = n => {
     const u = n.replace(/\s+/gi,'_').toUpperCase();
     //const l = n.replace(/\s+/gi,'_').toLowerCase();
-    //console.log('Fyneworks config constant', u, l);
+    ////console.log('Fyneworks config constant', u, l);
     return process.env['REACT_APP_FWX_'+u] || process.env['FWX_'+u];
     // see https://create-react-app.dev/docs/adding-custom-environment-variables/
 }
@@ -29,7 +29,7 @@ export const constant = n => {
     const dataset = ()=> Object.assign({}, document.body.dataset);
     const u = n.replace(/\s+/gi,'_').toUpperCase();
     const l = n.replace(/\s+/gi,'_').toLowerCase();
-    //console.log('Fyneworks config constant', u, l);
+    ////console.log('Fyneworks config constant', u, l);
     return process.env['REACT_APP_FWX_'+u] || process.env['FWX_'+u] || window['FWX_'+u] || dataset[l];
     // see https://create-react-app.dev/docs/adding-custom-environment-variables/
 }
@@ -39,7 +39,7 @@ export const setting = n => {
     const u = n.replace(/\s+/gi,'_').toUpperCase();
     const l = n.replace(/\s+/gi,'_').toLowerCase();
     const c = camelCase(n.replace(/_+/gi,' '));
-    //console.log('Fyneworks config setting', u, l, c);
+    ////console.log('Fyneworks config setting', u, l, c);
     return fwx[u] || fwx[c] || fwx[l];
 }
 
@@ -47,16 +47,16 @@ export const scriptProp = n => {
     const dataset = ()=> Object.assign({}, document.body.dataset);
     const c = camelCase(n.replace(/[-\s+]/gi,'_'));
     const p = paramCase(n.replace(/[-\s+]/gi,'_'));
-    //console.log('Fyneworks config constant', u, l, d);
+    ////console.log('Fyneworks config constant', u, l, d);
     return dataset && dataset[c] && dataset[p];
     // see https://create-react-app.dev/docs/adding-custom-environment-variables/
 }
 
 
-//console.log('Fyneworks config EnvironmentConstants()', EnvironmentConstants())
+////console.log('Fyneworks config EnvironmentConstants()', EnvironmentConstants())
 
 export const ParseContext = (defaults, overrides)=> {
-    console.log('ParseContext invoked');
+    //console.log('ParseContext invoked');
 
     let context = Object.assign(
         {}, 
@@ -108,6 +108,6 @@ export const ParseContext = (defaults, overrides)=> {
 
 export const context = ParseContext();
 
-console.log('FYNEWORKS CONTEXT RESULT (processed process.env and others)', context);
+//console.log('FYNEWORKS CONTEXT RESULT (processed process.env and others)', context);
 
 export const FyneContext = React.createContext(context);

@@ -20,7 +20,7 @@ export const options = {
         // url, path and route are supplied to the interceptor
         // request options can be modified and must be returned
         request: async ({ options, url, path, route }) => {
-            console.log('Fyneworks API intercepted request', { options, url, path, route });
+            //console.log('Fyneworks API intercepted request', { options, url, path, route });
 
             //if (isExpired(token)) {
             //    token = await getNewToken()
@@ -37,7 +37,7 @@ export const options = {
 
         // every time we make an http request, before getting the response back, this will run
         response: async ({ response }) => {
-            console.log('Fyneworks API intercepted response', { response });
+            //console.log('Fyneworks API intercepted response', { response });
 
             const res = response;
 
@@ -54,7 +54,7 @@ export const options = {
 export const url = context.API_BASE;
 
 export const FyneProvider = ({...props}) => {
-    console.log('FyneProvider', props);
+    //console.log('FyneProvider', props);
     return (
         <Provider url={url} options={options}>
             {props.children}
@@ -65,7 +65,7 @@ export const FyneProvider = ({...props}) => {
 export const useFyneAPI = (func, dependencies = []) => {
     
     const baseUrl = context.API_BASE + func;
-    console.log('useFyneAPI', { func, dependencies });
+    //console.log('useFyneAPI', { func, dependencies });
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -77,7 +77,7 @@ export const useFyneAPI = (func, dependencies = []) => {
         const endpoint = Endpoint(baseUrl);
         const request = endpoint[method];
 
-        console.log('useFyneAPI run', {method, options, baseUrl, endpoint, request});
+        //console.log('useFyneAPI run', {method, options, baseUrl, endpoint, request});
 
         return new Promise((resolve, reject) => 
             request(options)
@@ -129,7 +129,7 @@ export const useFyneAPI____USEHTTP = (func, dependencies) => {
 
     const url = context.API_BASE + func;
 
-    console.log('useFyneAPI', { func, dependencies });
+    //console.log('useFyneAPI', { func, dependencies });
 
     const { 
         request,

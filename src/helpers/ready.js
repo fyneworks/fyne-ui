@@ -10,6 +10,10 @@
 // https://caniuse.com/#search=readyState
 // https://caniuse.com/#search=addEventListener
 // 
+
+// see also  
+//import 'requestidlecallback-polyfill';
+
 export const ready = run =>{
     
     // in case the document is already rendered

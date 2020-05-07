@@ -1,4 +1,4 @@
-import { fyne_app } from './factory'
+import { fyneApp } from '@fyne/ui'
 
 export const app_id = "inline";
 export const ele_id = window.FYNE_INLINE_ID || 'fwxfrm-inline';
@@ -7,7 +7,7 @@ export const className = window.FYNE_INLINE_CLASS || 'fwxfrm-inline';
 // this is to be moved inside hubster at some point
 let isBound = false;
 
-export const config = fyne_app(app_id);
+export const config = fyneApp(app_id);
 
 export const render = ({ele,data,loader=true,...props}) => {
     console.log("INLINE render", {ele,data,props});

@@ -2,6 +2,8 @@ import { FyneContext, context } from './context'
 import { FyneProvider, useFyneAPI } from './api'
 import { FyneFormAPI, useFyneForm } from './form'
 import { FyneSelect } from './select'
+import { ready } from './helpers/ready'
+import { docReady } from './helpers/docReady'
 import { 
     fyneHub,
     fyneAppConfig,
@@ -42,4 +44,7 @@ export {
     fyneHub,
     fyneAppConfig,
     fyneApp,
+
+    ready,
+    docReady
 }

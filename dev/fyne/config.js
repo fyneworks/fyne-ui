@@ -1,4 +1,4 @@
-import * as apps from './apps';
+import apps from './apps';
 
 export const config = {
   apps: [

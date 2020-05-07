@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import { format } from 'date-fns'
-import { FyneSelect } from 'fyneworks'
+import { FyneSelect } from '@fyne/ui'
 import { FyneFormAPI } from '@fyne/ui';
 
 import LoadingOverlay from 'react-loading-overlay';

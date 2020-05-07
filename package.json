@@ -2,7 +2,7 @@
   "name": "@fyne/ui",
   "version": "1.0.4",
   "description": "",
-  "main": "fyneui.js",
+  "main": "index.js",
   "scripts": {
     "dev": "npm run start",
     "start": "NODE_ENV=development webpack-dev-server --mode=development --env.NODE_ENV=development",
@@ -13,19 +13,16 @@
     "tidy": "eclint fix 'src/**/*'",
     "go": "npm run build && npm run deploy"
   },
-  "_moduleAliases": {
-    "@fyne/ui": "src"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fyneworks/fyneui.git"
+    "url": "git+https://github.com/fyneworks/fyne-ui.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/fyneworks/fyneui/issues"
+    "url": "https://github.com/fyneworks/fyne-ui/issues"
   },
-  "homepage": "https://github.com/fyneworks/fyneui#readme",
+  "homepage": "https://github.com/fyneworks/fyne-ui#readme",
   "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.8.4",

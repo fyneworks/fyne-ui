@@ -60,15 +60,13 @@ module.exports = (env, argv) => {
 
 
 
-  const resolve = {
-    root: __dirname,
-    alias: npm_package._moduleAliases || {},
-    modules: npm_package._moduleDirectories || [] // eg: ["node_modules", "node_modules_custom", "src"]
-  };
-
   const baseConfig = {
     //mode: 'production',
-    resolve,
+    resolve: {
+      alias: {
+        "@fyne/ui": path.resolve(__dirname, "src/index.js")
+      }
+    },
     module: {
         rules: [
             { test: /\.txt$/, use: 'raw-loader' },

@@ -1,4 +1,4 @@
-import { fyne_app } from './factory'
+import { fyneApp } from '@fyne/ui'
 
 export const app_id = "dialog";
 export const ele_id = window.FYNE_DIALOG_ID || "fwxfrm-dialog";
@@ -8,7 +8,7 @@ const div  = document.createElement("div");
 // this is to be moved inside hubster at some point
 let isBound = false;
 
-export const config = fyne_app(app_id);
+export const config = fyneApp(app_id);
 
 export const render = (data) => {
     
