@@ -1,3 +1,3 @@
-import * as fyneui from './src';
+import fyneui from './src';
 
 export default fyneui;
