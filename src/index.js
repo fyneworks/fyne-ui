@@ -22,8 +22,6 @@ import {
     Endpoint,
 } from './network'
 
-
-
 export {
     FyneContext, context,
     FyneProvider, useFyneAPI,
@@ -41,9 +39,9 @@ export {
     del,
     Endpoint,
 
-    fyneHub,
     fyneAppConfig,
     fyneApp,
+    fyneHub,
 
     ready,
     docReady
