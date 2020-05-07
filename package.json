@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/fyneworks/fyne-ui#readme",
   "dependencies": {
-    "hubster-js": "0.0.9"
+    "hubster-js": "0.0.10"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

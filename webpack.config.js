@@ -184,7 +184,7 @@ module.exports = (env, argv) => {
       .concat([new CopyWebpackPlugin([{ from: 'static' }]),])
     ,
     devServer: {
-      port: 9000,
+      port: 9002,
       compress: true,
       open: true,
       hot: true,
