@@ -1,6 +1,6 @@
 {
   "name": "@fyne/ui",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "",
   "main": "fyneui.js",
   "scripts": {
@@ -11,7 +11,6 @@
     "build": "npm run build:prod",
     "deploy": "surge ./dist --domain https://ui.fyneworks.io",
     "tidy": "eclint fix 'src/**/*'",
-    "publish": "npm publish --access public",
     "go": "npm run build && npm run deploy"
   },
   "_moduleAliases": {
