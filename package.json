@@ -1,0 +1,41 @@
+{
+  "name": "@fyne/ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "fyneui.js",
+  "scripts": {
+    "dev": "npm run start",
+    "start": "NODE_ENV=development webpack-dev-server --mode=development --env.NODE_ENV=development",
+    "build:dev": "NODE_ENV=development webpack --mode=development --env.NODE_ENV=development",
+    "build:prod": "NODE_ENV=production webpack --mode=production --env.NODE_ENV=production",
+    "build": "npm run build:prod",
+    "deploy": "surge ./dist --domain https://ui.fyneworks.io",
+    "tidy": "eclint fix 'src/**/*'",
+    "go": "npm run build && npm run deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fyneworks/fyneui.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fyneworks/fyneui/issues"
+  },
+  "homepage": "https://github.com/fyneworks/fyneui#readme",
+  "dependencies": {
+    "change-case": "^4.1.1",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.5.3",
+    "dotenv": "^8.2.0",
+    "html-webpack-plugin": "^4.3.0",
+    "hubster-js": "0.0.9",
+    "path": "^0.12.7",
+    "postcss-loader": "^3.0.0",
+    "react": "^16.13.1",
+    "sass-loader": "^8.0.2",
+    "use-http": "^1.0.10",
+    "webpack": "^4.43.0",
+    "whatwg-fetch": "^3.0.0"
+  }
+}

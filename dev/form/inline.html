@@ -1,0 +1,64 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+    <a href="./"><h1>fyneUI</h1></a>
+    <p>
+      This example shows how a Fyneworks enquiry forms can be integrated with any website
+    </p>
+    <p>
+      The example below renders the form directly on the page
+    </p>
+    <div style="border: #009 solid 0px; min-height:100px; width:100%; margin:20px; display:block; box-sizing:border-box;">
+        <div class="fwxfrm-inline"></div>
+    </div>
+
+    <p>
+      You can also invoke fyneworks programatically by running <code>fyneworks.show()</code>
+    </p>
+    <p>
+      It can also be <a href="./dialog.html">loaded as a dialog</a>
+    </p>
+
+
+    <p>
+      PS.: it will also render new forms on demand
+      if the DOM is updated (uses MutationObserver)
+    </p>
+        
+    <script>    
+      function addElement() {
+          const newElement = document.createElement('div');
+          newElement.classList.add("fwxfrm-inline");
+          newElement.style.height = "200px"
+            newElement.style.width = "30%"
+            newElement.style.display = "inline-block"
+            newElement.style.margin = "10px"
+            newElement.style.border = "#ccc solid 1px"
+          document.body.appendChild(newElement);
+      }
+    </script>
+    <button onclick="addElement()">Add new form</button>
+    <hr/>
+
+    
+    <!-- <script src="./inline.js"></script> -->
+</html>
