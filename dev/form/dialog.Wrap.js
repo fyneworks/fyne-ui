@@ -9,7 +9,7 @@ import { useMediaQuery } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 
 import { Form, post } from './form';
-import { useFyneForm } from '@fyne/ui';
+import { useFyneForm } from '@fyne/ui/form';
 
 import { useSnackbar } from 'notistack'; //https://material-ui.com/components/snackbars/
 import { makeNotifier } from './notify';

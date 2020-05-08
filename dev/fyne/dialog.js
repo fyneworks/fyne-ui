@@ -1,4 +1,4 @@
-import { fyneApp } from '@fyne/ui'
+import { fyneApp } from '@fyne/ui/hubster'
 
 export const app_id = "dialog";
 export const ele_id = window.FYNE_DIALOG_ID || "fwxfrm-dialog";

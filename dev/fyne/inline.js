@@ -1,4 +1,4 @@
-import { fyneApp } from '@fyne/ui'
+import { fyneApp } from '@fyne/ui/hubster';
 
 export const app_id = "inline";
 export const ele_id = window.FYNE_INLINE_ID || 'fwxfrm-inline';
