@@ -3,6 +3,7 @@ const webpack = require('webpack'); //to access built-in plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //installed via npm
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const npm_package = require('./package.json');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -65,17 +66,6 @@ module.exports = (env, argv) => {
     resolve: {
       alias: {
         "@fyne/ui": path.resolve(__dirname, "src/"),
-        //"@fyne/ui$": path.resolve(__dirname, "index.js"),
-        //"@fyne/ui/api$": path.resolve(__dirname, "api.js"),
-        //"@fyne/ui/analytics$": path.resolve(__dirname, "analytics.js"),
-        //"@fyne/ui/antispam$": path.resolve(__dirname, "antispam.js"),
-        //"@fyne/ui/context$": path.resolve(__dirname, "context.js"),
-        //"@fyne/ui/form$": path.resolve(__dirname, "form.js"),
-        //"@fyne/ui/hubster$": path.resolve(__dirname, "hubster.js"),
-        //"@fyne/ui/network$": path.resolve(__dirname, "network.js"),
-        //"@fyne/ui/select$": path.resolve(__dirname, "select.js"),
-        //"@fyne/ui/helpers$": path.resolve(__dirname, "helpers.js"),
-        //"@fyne/ui/helpers/ready": path.resolve(__dirname, "helpers", "ready.js"),
       }
     },
     module: {
@@ -150,106 +140,126 @@ module.exports = (env, argv) => {
     'react-addons-update': 'var React.addons.update'
   };
 
-  const inlineConfig = Object.assign({}, baseConfig, {
-    entry: {
-      form: './dev/form/inline.js'
-    },
-    output: {
-      path: path.resolve(__dirname, './dist'),
-      filename: 'inline.js'
-    },
-    plugins: commonPlugins,
-    externals
-  });
-
-  const dialogConfig = Object.assign({}, baseConfig, {
-    entry: {
-      form: './dev/form/dialog.js'
-    },
-    output: {
-      path: path.resolve(__dirname, './dist'),
-      filename: 'dialog.js'
-    },
-    plugins:  commonPlugins,
-    externals
-  });
 
 
-  // the app lazy loaded in various methods withe fyneUI
-  const fyneConfig = Object.assign({}, baseConfig, {
-    entry: {
-      main: './dev/fyne/index.js'
-    },
-    output: {
-      path: path.resolve(__dirname, './dist'),
-      filename: 'fyne.js'
-    },
-    plugins: []
-      .concat([new CleanWebpackPlugin()])
-      .concat(commonPlugins)
-      .concat([new HtmlWebpackPlugin({ filename: 'index.html', template: './dev/index.html'})])
-      .concat([new HtmlWebpackPlugin({ filename: 'dialog.html', template: './dev/form/dialog.html'})])
-      .concat([new HtmlWebpackPlugin({ filename: 'inline.html', template: './dev/form/inline.html' })])
-      .concat([new HtmlWebpackPlugin({ filename: 'dynamic.html', template: './dev/form/dynamic.html' })])
-      .concat([new CopyWebpackPlugin([{ from: 'favicon' }]),])
-      .concat([new CopyWebpackPlugin([{ from: 'static' }]),])
-    ,
-    devServer: {
-      port: 9002,
-      compress: true,
-      open: true,
-      hot: true,
-      //inline: false,
-      disableHostCheck: true,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-        "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
-      },
-      //contentBase: [
-      //  path.join(__dirname, 'dist'),
-      //  path.join(__dirname, 'static'),
-      //  path.join(__dirname, 'form', 'dist')
-      //],
-      after: function(app, server, compiler) {
-        console.log("Dev server stopped");
+
+
+
+
+
+
+
+
+
+  // distribution bundles
+  const prodBundles = [
+    'context',
+    'analytics',
+    'antispam',
+    'api',
+    'form',
+    'hubster',
+    'network',
+    'select'
+  ].map(b=>
+    Object.assign({}, baseConfig, {
+      entry: {main:'./src/'+b+'.js'},
+      output: {path:path.resolve(__dirname, './dist'),filename:''+b+'.js'},
+      plugins: commonPlugins
+    })
+  );
+
+
+  // demo bundles
+  const demoBundles = [
+  
+    // the app lazy loaded in various methods withe fyneUI
+    Object.assign({}, baseConfig, {
+      entry: {main:'./dev/fyne/index.js'},
+      output: { path:path.resolve(__dirname, './demo'),filename:'fyne.js'},
+      plugins: []
+        .concat([new CleanWebpackPlugin()])
+        .concat(commonPlugins)
+        .concat([new HtmlWebpackPlugin({ filename: 'index.html', template: './dev/index.html'})])
+        .concat([new HtmlWebpackPlugin({ filename: 'dialog.html', template: './dev/form/dialog.html'})])
+        .concat([new HtmlWebpackPlugin({ filename: 'inline.html', template: './dev/form/inline.html' })])
+        .concat([new HtmlWebpackPlugin({ filename: 'dynamic.html', template: './dev/form/dynamic.html' })])
+        .concat([new CopyWebpackPlugin([{ from: 'favicon' }]),])
+        .concat([new CopyWebpackPlugin([{ from: 'static' }]),])
+    }),
+    
+    // the app bundle including fyneUI integration
+    Object.assign({}, baseConfig, {
+      entry: {main:'./dev/form/direct.js'},
+      output: { path:path.resolve(__dirname, './demo'),filename:'direct.js'},
+      plugins: commonPlugins.concat([new HtmlWebpackPlugin({ filename: 'direct.html', template: './dev/form/direct.html'})]),
+    }),
+  
+    // the app without fyneUI integration
+    Object.assign({}, baseConfig, {
+      entry: {main:'./dev/form/plain.js'},
+      output: { path:path.resolve(__dirname, './demo'),filename:'plain.js'},
+      plugins: commonPlugins.concat([new HtmlWebpackPlugin({ filename: 'plain.html', template: './dev/form/plain.html'})]),
+    }),
+
+    Object.assign({}, baseConfig, {
+      entry: {main:'./dev/form/inline.js'},
+      output: { path:path.resolve(__dirname, './demo'),filename:'inline.js'},
+      plugins: commonPlugins,
+      externals
+    }),
+  
+    Object.assign({}, baseConfig, {
+      entry: {main:'./dev/form/dialog.js'},
+      output: { path:path.resolve(__dirname, './demo'),filename:'dialog.js'},
+      plugins:  commonPlugins,
+      externals
+    }),
+
+  ];
+
+
+
+
+  const withDevServer = bundles => {
+    bundles[0] = Object.assign({}, bundles[0], {
+      devServer: {
+        port: 9002,
+        compress: true,
+        open: true,
+        hot: true,
+        //colors: true, -- cli only, --color
+        //inline: false,
+        disableHostCheck: true,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+          "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+        },
+        //contentBase: [
+        //  path.join(__dirname, 'dist'),
+        //  path.join(__dirname, 'static'),
+        //  path.join(__dirname, 'form', 'dist')
+        //],
+        before: function(app, server, compiler) {
+          console.log("Dev server started");
+        },
+        after: function(app, server, compiler) {
+          console.log("Dev server stopped");
+        }
       }
-    }
-  });
-  
-  
-  // the app bundle including fyneUI integration
-  const directConfig = Object.assign({}, baseConfig, {
-    entry: {
-      form: './dev/form/direct.js'
-    },
-    output: {
-      path: path.resolve(__dirname, './dist'),
-      filename: 'direct.js'
-    },
-    plugins: []
-    .concat(commonPlugins)
-    .concat([new HtmlWebpackPlugin({ filename: 'direct.html', template: './dev/form/direct.html'})])
-  });
-
-  
-  // the app without fyneUI integration
-  const plainConfig = Object.assign({}, baseConfig, {
-    entry: {
-      form: './dev/form/plain.js'
-    },
-    output: {
-      path: path.resolve(__dirname, './dist'),
-      filename: 'plain.js'
-    },
-    plugins: []
-    .concat(commonPlugins)
-    .concat([new HtmlWebpackPlugin({ filename: 'plain.html', template: './dev/form/plain.html'})])
-  });
+    });
+    return bundles;
+  }
 
 
-  // bundles array
-  const bundles = [fyneConfig, dialogConfig, inlineConfig, directConfig, plainConfig]
-  
-  return bundles;
+
+
+
+
+  if(process.env.NODE_ENV=='development'){
+    return withDevServer(demoBundles);
+  }
+
+  return prodBundles.concat(demoBundles);
 }

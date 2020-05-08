@@ -3,9 +3,12 @@
   "version": "1.0.25",
   "description": "",
   "type": "module",
-  "main": "./src/index.js",
+  "main": "./dist/index.js",
+  "publishConfig": {
+     "access": "restricted"
+  },
   "exports": {
-    "./": "./src/"
+    "./": "./dist/"
   },
   "scripts": {
     "dev": "npm run start",
@@ -13,7 +16,8 @@
     "build:dev": "NODE_ENV=development webpack --mode=development --env.NODE_ENV=development",
     "build:prod": "NODE_ENV=production webpack --mode=production --env.NODE_ENV=production",
     "build": "npm run build:prod",
-    "deploy": "surge ./dist --domain https://ui.fyneworks.io",
+    "prebuild": "rm -rf ./dist && rm -rf ./demo",
+    "deploy": "surge ./demo --domain https://ui.fyneworks.io",
     "tidy": "eclint fix 'src/**/*'",
     "go": "npm run build && npm run deploy"
   },
@@ -27,8 +31,10 @@
     "url": "https://github.com/fyneworks/fyne-ui/issues"
   },
   "homepage": "https://github.com/fyneworks/fyne-ui#readme",
-  "dependencies": {
-    "hubster-js": "0.0.10"
+  "dependencies": {},
+  "peerDependencies": {
+    "react": ">=15.0.1",
+    "react-dom": ">=15.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -58,18 +64,20 @@
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
     "core-js": "^3.0.1",
-    "css-loader": "^3.5.2",
+    "css-loader": "^3.5.3",
     "date-fns": "^2.12.0",
     "dotenv": "^8.2.0",
     "dotenv-cra": "^1.0.0",
     "eslint": "^6.8.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-react-hooks": "^4.0.0",
+    "extract-text-webpack-plugin": "^3.0.2",
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.2.0",
+    "hubster-js": "0.0.10",
     "jss": "^10.1.1",
     "node-libs-browser": "^2.2.1",
-    "node-sass": "^4.13.1",
+    "node-sass": "^4.14.1",
     "notistack": "^0.9.10",
     "path": "^0.12.7",
     "postcss-loader": "^3.0.0",
@@ -82,7 +90,7 @@
     "react-spinners": "^0.8.3",
     "requestidlecallback-polyfill": "^1.0.2",
     "sass-loader": "^8.0.2",
-    "style-loader": "^1.1.4",
+    "style-loader": "^1.2.1",
     "url-loader": "^4.1.0",
     "use-http": "^1.0.10",
     "webpack": "^4.42.1",
