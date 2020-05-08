@@ -2,7 +2,7 @@
   "name": "@fyne/ui",
   "version": "1.0.17",
   "description": "",
-  "main": "index.js",
+  "main": "./src",
   "scripts": {
     "dev": "npm run start",
     "start": "NODE_ENV=development webpack-dev-server --mode=development --env.NODE_ENV=development",
