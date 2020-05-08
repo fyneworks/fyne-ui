@@ -3,8 +3,8 @@ const webpack = require('webpack'); //to access built-in plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //installed via npm
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const npm_package = require('./package.json');
+const pkg = require('./package.json');
+const libraryName = pkg.name;
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
@@ -165,7 +165,11 @@ module.exports = (env, argv) => {
     Object.assign({}, baseConfig, {
       entry: {main:'./src/'+b+'.js'},
       output: {path:path.resolve(__dirname, './dist'),filename:''+b+'.js'},
-      plugins: commonPlugins
+      plugins: commonPlugins,
+      library: libraryName,      
+      libraryTarget: 'umd',      
+      publicPath: '/dist/',      
+      umdNamedDefine: true  
     })
   );
 
