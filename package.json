@@ -19,7 +19,8 @@
     "prebuild": "rm -rf ./dist && rm -rf ./demo",
     "deploy": "surge ./demo --domain https://ui.fyneworks.io",
     "tidy": "eclint fix 'src/**/*'",
-    "go": "npm run build && npm run deploy"
+    "go": "npm run build && npm run deploy",
+    "publish": "np --access public"
   },
   "repository": {
     "type": "git",
