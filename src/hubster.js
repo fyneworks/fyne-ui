@@ -19,8 +19,9 @@ export const fyneAppConfig = ({app_id,ele_id,file}) => {
 };
 
 export const fyneApp = app_id => {
-    console.log('fyneApp', {context,app_id});
+    //console.log('fyneApp', {context,app_id});
     const app = fyneAppConfig({app_id,file:app_id+'.js'});
-    console.log('fyneApp', {context,app_id,app});
+    
+    //console.log('fyneApp', {context,app_id,app});
     return app;
 }
