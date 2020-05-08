@@ -1,4 +1,4 @@
-import React from 'react';
+//import React from 'react';
 import { camelCase, paramCase } from "change-case";
 
 import { script } from  './helpers/currentScript';
@@ -108,6 +108,8 @@ export const ParseContext = (defaults, overrides)=> {
 
 export const context = ParseContext();
 
+export default context;
+
 //console.log('FYNEWORKS CONTEXT RESULT (processed process.env and others)', context);
 
-export const FyneContext = React.createContext(context);
+//export const FyneContext = React.createContext(context);
