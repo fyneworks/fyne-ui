@@ -2,9 +2,10 @@
   "name": "@fyne/ui",
   "version": "1.0.20",
   "description": "",
-  "main": "./src",
+  "type": "module",
+  "main": "./src/index.js",
   "exports": {
-    ".": "./src/"
+    "./": "./src/"
   },
   "scripts": {
     "dev": "npm run start",
