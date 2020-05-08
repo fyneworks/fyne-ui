@@ -167,7 +167,8 @@ module.exports = (env, argv) => {
       output: {
         path:path.resolve(__dirname, './dist'),filename:''+b+'.js',
         library: libraryName,      
-        libraryTarget: 'umd',      
+        //libraryTarget: 'umd',
+        libraryTarget: 'commonjs2', // THIS IS THE MOST IMPORTANT LINE! :mindblow: I wasted more than 2 days until realize this was the line most important in all this guide.
         publicPath: '/dist/',      
         umdNamedDefine: true  
       },
