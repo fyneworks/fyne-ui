@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, submit } from './form';
-//import { useFyneForm } from '@fyne/ui';
+//import { useFyneForm } from '@fyne-ui';
 
 import { Button } from '@material-ui/core'
 

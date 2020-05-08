@@ -64,7 +64,7 @@ module.exports = (env, argv) => {
     //mode: 'production',
     resolve: {
       alias: {
-        "@fyne/ui": path.resolve(__dirname, "src/index.js")
+        "@fyne-ui": path.resolve(__dirname, "src/index.js")
       }
     },
     module: {

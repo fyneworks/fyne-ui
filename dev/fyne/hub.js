@@ -4,7 +4,7 @@ import apps from './apps'
 
 console.log('CREATE UB WITH', {config});
 
-//import { fyneHub } from '@fyne/ui'
+//import { fyneHub } from '@fyne-ui'
 //export const Hub = window.Hub = fyneHub(config);
 
 import { createHub } from 'hubster-js'
