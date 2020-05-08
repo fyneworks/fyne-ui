@@ -1,2 +1,2 @@
-export { default } from './src/api'
-export * from './src/api'
+export { default } from './dist/api'
+export * from './dist/api'

@@ -1,2 +1,2 @@
-export { default } from './src/context'
-export * from './src/context'
+export { default } from './dist/context'
+export * from './dist/context'

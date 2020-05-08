@@ -1,2 +1,2 @@
-export { default } from './src/network'
-export * from './src/network'
+export { default } from './dist/network'
+export * from './dist/network'

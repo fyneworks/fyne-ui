@@ -1,2 +1,2 @@
-export { default } from './src/form'
-export * from './src/form'
+export { default } from './dist/form'
+export * from './dist/form'

@@ -1,2 +1,2 @@
-export { default } from './src/helpers'
-export * from './src/helpers'
+export { default } from './dist/helpers'
+export * from './dist/helpers'

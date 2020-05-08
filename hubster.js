@@ -1,2 +1,2 @@
-export { default } from './src/hubster'
-export * from './src/hubster'
+export { default } from './dist/hubster'
+export * from './dist/hubster'

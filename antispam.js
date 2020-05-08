@@ -1,2 +1,2 @@
-export { default } from './src/antispam'
-export * from './src/antispam'
+export { default } from './dist/antispam'
+export * from './dist/antispam'

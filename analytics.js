@@ -1,2 +1,2 @@
-export { default } from './src/analytics'
-export * from './src/analytics'
+export { default } from './dist/analytics'
+export * from './dist/analytics'
