@@ -64,7 +64,14 @@ module.exports = (env, argv) => {
     //mode: 'production',
     resolve: {
       alias: {
-        "@fyne/ui": path.resolve(__dirname, "src/index.js")
+        "@fyne/ui": path.resolve(__dirname, "src/index.js"),
+        "@fyne/analytics": path.resolve(__dirname, "src/analytics.js"),
+        "@fyne/hubster": path.resolve(__dirname, "src/hubster.js"),
+        "@fyne/context": path.resolve(__dirname, "src/context.js"),
+        "@fyne/network": path.resolve(__dirname, "src/network.js"),
+        "@fyne/antispam": path.resolve(__dirname, "src/antispam.js"),
+        "@fyne/form": path.resolve(__dirname, "src/form.js"),
+        "@fyne/select": path.resolve(__dirname, "src/select.js"),
       }
     },
     module: {
