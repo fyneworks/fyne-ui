@@ -1,2 +1,2 @@
-export { default } from './src/analytics'
-export * from './src/analytics'
+export { default } from './src/helpers'
+export * from './src/helpers'
