@@ -164,12 +164,14 @@ module.exports = (env, argv) => {
   ].map(b=>
     Object.assign({}, baseConfig, {
       entry: {main:'./src/'+b+'.js'},
-      output: {path:path.resolve(__dirname, './dist'),filename:''+b+'.js'},
+      output: {
+        path:path.resolve(__dirname, './dist'),filename:''+b+'.js',
+        library: libraryName,      
+        libraryTarget: 'umd',      
+        publicPath: '/dist/',      
+        umdNamedDefine: true  
+      },
       plugins: commonPlugins,
-      library: libraryName,      
-      libraryTarget: 'umd',      
-      publicPath: '/dist/',      
-      umdNamedDefine: true  
     })
   );
 
