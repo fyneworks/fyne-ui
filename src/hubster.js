@@ -1,4 +1,4 @@
-import { context } from '@fyne-ui';
+import { context } from '@fyne/ui';
 import { createHub } from 'hubster-js'
 
 export const fyneHub = createHub;

@@ -8,7 +8,7 @@ if (process.env.DEBUG) {
 }
 console.log('fyne.js process.env', {APP_NAME,ENV:process.env})
 
-import { ready } from '@fyne-ui';
+import { ready } from '@fyne/ui';
 
 import * as api from './api';
 
