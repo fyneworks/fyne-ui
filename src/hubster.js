@@ -1,6 +1,5 @@
+import { context } from './context';
 import { createHub } from 'hubster-js'
-
-export { context } from '@fyne/ui/context';
 
 export const fyneHub = createHub;
 
