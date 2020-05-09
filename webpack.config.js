@@ -133,11 +133,12 @@ module.exports = (env, argv) => {
 
   const externals = {
 
-    'react': 'umd react',
-    'react-dom' : 'umd react-dom',
+    // meh
+    //'react': 'umd react',
+    //'react-dom' : 'umd react-dom',
     // https://github.com/webpack/webpack/issues/1275#issuecomment-225644823
-
-
+    
+    // better
     react: {
       root: 'React',
       commonjs2: 'react',
