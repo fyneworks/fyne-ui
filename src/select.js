@@ -1,5 +1,5 @@
-//import React from 'react';
-const React = require('react');
+import React from 'react';
+//const React = require('react');
 
 //import { useState, useEffect } from 'react';
 const { useState } = React;
