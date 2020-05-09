@@ -132,8 +132,8 @@ module.exports = (env, argv) => {
 
 
   const externals = {
-    'react': 'React',
-    'react-dom': 'ReactDOM',
+    'react': 'window.React',
+    'react-dom': 'window.ReactDOM',
     'react-addons-transition-group': 'var React.addons.TransitionGroup',
     'react-addons-pure-render-mixin': 'var React.addons.PureRenderMixin',
     'react-addons-create-fragment': 'var React.addons.createFragment',

@@ -30,7 +30,7 @@ export const FyneSelect = ({
     }, [ /* variables to watch */ edition ]);
 
     const FyneworksGet = query => {
-        query = {...query, test:1, hello:'world'}
+        //query = {...query, test:1, hello:'world'}
         //console.log('FyneworksGet', query);
         return get( query )
     }
