@@ -1,4 +1,10 @@
-import React, {useState, useEffect } from 'react';
+//import React from 'react';
+const React = require('react');
+
+//import { useState, useEffect } from 'react';
+const { useState } = React;
+const { useEffect } = React;
+
 import CreatableSelect from 'react-select/creatable';
 import { useFyneAPI } from './api';
 

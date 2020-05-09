@@ -1,4 +1,8 @@
-import React, { useCallback } from 'react';
+//import React from 'react';
+const React = require('react');
+
+//import { useCallback } from 'react';
+const { useCallback } = React;//import { useCallback } from 'react';
 
 import { Analytics } from './analytics';
 import { Antispam } from './antispam';

@@ -1,5 +1,11 @@
-import React from 'react'
-import { useState, useCallback, useEffect } from 'react';
+//import React from 'react'
+const React = require('react');
+
+//import { useState, useCallback, useEffect } from 'react';
+const { useState } = React;//import { useState } from 'react';
+const { useEffect } = React;//import { useEffect } from 'react';
+const { useCallback } = React;//import { useCallback } from 'react';
+
 import useFetch, { Provider } from 'use-http'
 import { context } from './context';
 import { headers, Endpoint,
