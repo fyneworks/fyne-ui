@@ -163,7 +163,7 @@ module.exports = (env, argv) => {
     'select'
   ].map(b=>
     Object.assign({}, baseConfig, {
-      entry: {main:path.resolve(__dirname,'./src/', b+'.js')},
+      entry: {main:path.resolve(__dirname,'src', b+'.js')},
       output: {
         path:path.resolve(__dirname, './dist'),filename:''+b+'.js',
         library: libraryName,      
@@ -185,7 +185,7 @@ module.exports = (env, argv) => {
   
     // the app lazy loaded in various methods withe fyneUI
     Object.assign({}, baseConfig, {
-      entry: {main:path.resolve(__dirname,'./dev/','/fyne/','index.js'},
+      entry: {main:path.resolve(__dirname,'dev','fyne','index.js')},
       output: { path:path.resolve(__dirname, './demo'),filename:'fyne.js'},
       plugins: []
         .concat([new CleanWebpackPlugin()])
@@ -200,14 +200,14 @@ module.exports = (env, argv) => {
     }),
 
     Object.assign({}, baseConfig, {
-      entry: {main:path.resolve(__dirname,'./dev/','/form/','inline.js'},
+      entry: {main:path.resolve(__dirname,'dev','form','inline.js')},
       output: { path:path.resolve(__dirname, './demo'),filename:'inline.js'},
       plugins: commonPlugins,
       externals, // don't bundle react or react-dom
     }),
   
     Object.assign({}, baseConfig, {
-      entry: {main:path.resolve(__dirname,'./dev/','/form/','dialog.js'},
+      entry: {main:path.resolve(__dirname,'dev','form','dialog.js')},
       output: { path:path.resolve(__dirname, './demo'),filename:'dialog.js'},
       plugins:  commonPlugins,
       externals, // don't bundle react or react-dom
@@ -215,14 +215,14 @@ module.exports = (env, argv) => {
     
     // the app bundle including fyneUI integration
     Object.assign({}, baseConfig, {
-      entry: {main:path.resolve(__dirname,'./dev/','/form/','direct.js'},
+      entry: {main:path.resolve(__dirname,'dev','form','direct.js')},
       output: { path:path.resolve(__dirname, './demo'),filename:'direct.js'},
       plugins: commonPlugins.concat([new HtmlWebpackPlugin({ filename: 'direct.html', template: './dev/form/direct.html'})]),
     }),
   
     // the app without fyneUI integration
     Object.assign({}, baseConfig, {
-      entry: {main:path.resolve(__dirname,'./dev/','/form/','plain.js'},
+      entry: {main:path.resolve(__dirname,'dev','form','plain.js')},
       output: { path:path.resolve(__dirname, './demo'),filename:'plain.js'},
       plugins: commonPlugins.concat([new HtmlWebpackPlugin({ filename: 'plain.html', template: './dev/form/plain.html'})]),
     }),
