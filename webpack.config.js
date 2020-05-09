@@ -171,6 +171,9 @@ module.exports = (env, argv) => {
         publicPath: '/dist/',      
         umdNamedDefine: true  
       },
+      optimization: {
+        minimize: false,
+      },
       plugins: commonPlugins,
       externals, // don't bundle react or react-dom
     })
