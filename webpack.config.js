@@ -132,8 +132,11 @@ module.exports = (env, argv) => {
 
 
   const externals = {
-    'react': 'window.React',
-    'react-dom': 'window.ReactDOM',
+    
+    'react': 'umd react',
+    'react-dom' : 'umd react-dom',
+    // https://github.com/webpack/webpack/issues/1275#issuecomment-225644823
+
     'react-addons-transition-group': 'var React.addons.TransitionGroup',
     'react-addons-pure-render-mixin': 'var React.addons.PureRenderMixin',
     'react-addons-create-fragment': 'var React.addons.createFragment',
