@@ -132,10 +132,26 @@ module.exports = (env, argv) => {
 
 
   const externals = {
-    
+
     'react': 'umd react',
     'react-dom' : 'umd react-dom',
     // https://github.com/webpack/webpack/issues/1275#issuecomment-225644823
+
+
+    react: {
+      root: 'React',
+      commonjs2: 'react',
+      commonjs: 'react',
+      amd: 'react'
+    },
+    'react-dom': {
+        root: 'ReactDOM',
+        commonjs2: 'react-dom',
+        commonjs: 'react-dom',
+        amd: 'react-dom'
+    },
+    // https://github.com/webpack/webpack/issues/1275#issuecomment-245470919
+    // 
 
     'react-addons-transition-group': 'var React.addons.TransitionGroup',
     'react-addons-pure-render-mixin': 'var React.addons.PureRenderMixin',
