@@ -173,6 +173,7 @@ module.exports = (env, argv) => {
         umdNamedDefine: true  
       },
       plugins: commonPlugins,
+      externals, // don't bundle react or react-dom
     })
   );
 
@@ -192,7 +193,8 @@ module.exports = (env, argv) => {
         .concat([new HtmlWebpackPlugin({ filename: 'inline.html', template: './dev/form/inline.html' })])
         .concat([new HtmlWebpackPlugin({ filename: 'dynamic.html', template: './dev/form/dynamic.html' })])
         .concat([new CopyWebpackPlugin([{ from: 'favicon' }]),])
-        .concat([new CopyWebpackPlugin([{ from: 'static' }]),])
+        .concat([new CopyWebpackPlugin([{ from: 'static' }]),]),
+      externals, // don't bundle react or react-dom
     }),
     
     // the app bundle including fyneUI integration
@@ -213,14 +215,14 @@ module.exports = (env, argv) => {
       entry: {main:'./dev/form/inline.js'},
       output: { path:path.resolve(__dirname, './demo'),filename:'inline.js'},
       plugins: commonPlugins,
-      externals
+      externals, // don't bundle react or react-dom
     }),
   
     Object.assign({}, baseConfig, {
       entry: {main:'./dev/form/dialog.js'},
       output: { path:path.resolve(__dirname, './demo'),filename:'dialog.js'},
       plugins:  commonPlugins,
-      externals
+      externals, // don't bundle react or react-dom
     }),
 
   ];
