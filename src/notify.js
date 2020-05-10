@@ -1,12 +1,14 @@
 import React from 'react';
 //const React = require('react');
 
-export { useSnackbar, SnackbarProvider } from 'notistack'; //https://material-ui.com/components/snackbars/
-
 //import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import Slide from '@material-ui/core/Slide';
 import Button from '@material-ui/core/Button';
+
+import notistack from 'notistack'; //https://material-ui.com/components/snackbars/
+export const { SnackbarProvider } = notistack;
+export const { useSnackbar } = notistack;
 
 export const Notify = (props) => <MuiAlert elevation={6} variant="filled" {...props}/>;
 export const Alert = (props) => <MuiAlert elevation={6} variant="filled" {...props}/>;
@@ -95,8 +97,8 @@ const notify = {
     snackbarOptions,
     snackbarActions,
 
-    //SnackbarProvider,
-    //useSnackbar,
+    SnackbarProvider,
+    useSnackbar,
 }
 
 
