@@ -20,7 +20,6 @@
     "deploy": "surge ./demo --domain https://ui.fyneworks.io",
     "tidy": "eclint fix 'src/**/*'",
     "go": "npm run build && npm run deploy",
-    "publish": "np --access public",
     "yolo": "clear && npm run build && git add . && git commit -m\"🤷‍♂️\" && np patch --no-release-draft"
   },
   "repository": {
