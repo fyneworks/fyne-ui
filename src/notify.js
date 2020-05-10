@@ -6,7 +6,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import Slide from '@material-ui/core/Slide';
 import Button from '@material-ui/core/Button';
 
-import notistack from 'notistack'; //https://material-ui.com/components/snackbars/
+import * as notistack from 'notistack'; //https://material-ui.com/components/snackbars/
 export const { SnackbarProvider } = notistack;
 export const { useSnackbar } = notistack;
 
