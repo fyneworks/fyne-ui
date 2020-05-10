@@ -131,7 +131,12 @@ module.exports = (env, argv) => {
   };
 
 
-  const externals = {
+
+
+
+  // externals config for components loaded as modules
+  // react will bea peer dependeoces
+  const prodExternals = {
 
     // meh
     //'react': 'umd react',
@@ -152,8 +157,17 @@ module.exports = (env, argv) => {
         amd: 'react-dom'
     },
     // https://github.com/webpack/webpack/issues/1275#issuecomment-245470919
-    // 
 
+  };
+
+
+  
+
+  // externals config for apps loaded by hubster
+  // react will be on the window
+  const demoExternals = {
+    'react': 'window.React',
+    'react-dom': 'window.ReactDOM',
     'react-addons-transition-group': 'var React.addons.TransitionGroup',
     'react-addons-pure-render-mixin': 'var React.addons.PureRenderMixin',
     'react-addons-create-fragment': 'var React.addons.createFragment',
@@ -180,7 +194,8 @@ module.exports = (env, argv) => {
     'form',
     'hubster',
     'network',
-    'select'
+    'select',
+    'notify'
   ].map(b=>
     Object.assign({}, baseConfig, {
       entry: {main:path.resolve(__dirname,'src', b+'.js')},
@@ -195,7 +210,7 @@ module.exports = (env, argv) => {
         minimize: false,
       },
       plugins: commonPlugins,
-      externals, // don't bundle react or react-dom
+      externals: prodExternals, // don't bundle react or react-dom
     })
   );
 
@@ -216,21 +231,21 @@ module.exports = (env, argv) => {
         .concat([new HtmlWebpackPlugin({ filename: 'dynamic.html', template: './dev/form/dynamic.html' })])
         .concat([new CopyWebpackPlugin([{ from: 'favicon' }]),])
         .concat([new CopyWebpackPlugin([{ from: 'static' }]),]),
-      externals, // don't bundle react or react-dom
+      externals: demoExternals, // don't bundle react or react-dom
     }),
 
     Object.assign({}, baseConfig, {
       entry: {main:path.resolve(__dirname,'dev','form','inline.js')},
       output: { path:path.resolve(__dirname, './demo'),filename:'inline.js'},
       plugins: commonPlugins,
-      externals, // don't bundle react or react-dom
+      externals: demoExternals, // don't bundle react or react-dom
     }),
   
     Object.assign({}, baseConfig, {
       entry: {main:path.resolve(__dirname,'dev','form','dialog.js')},
       output: { path:path.resolve(__dirname, './demo'),filename:'dialog.js'},
       plugins:  commonPlugins,
-      externals, // don't bundle react or react-dom
+      externals: demoExternals, // don't bundle react or react-dom
     }),
     
     // the app bundle including fyneUI integration

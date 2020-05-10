@@ -8,8 +8,7 @@ import { FyneSelect } from '@fyne/ui/select';
 import { FyneFormAPI } from '@fyne/ui/form';
 import LoadingOverlay from 'react-loading-overlay';
 
-import { useSnackbar } from 'notistack'; //https://material-ui.com/components/snackbars/
-import { makeNotifier } from './notify';
+import { makeNotifier, useSnackbar  } from '@fyne/ui/notify';
 
 export const action = window.API_ACTION || process.env.FWX_API_ACTION || '/cms/forms';
 

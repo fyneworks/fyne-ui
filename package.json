@@ -80,7 +80,7 @@
     "jss": "^10.1.1",
     "node-libs-browser": "^2.2.1",
     "node-sass": "^4.14.1",
-    "notistack": "^0.9.10",
+    "notistack": "^0.9.11",
     "path": "^0.12.7",
     "postcss-loader": "^3.0.0",
     "react": "^16.13.1",

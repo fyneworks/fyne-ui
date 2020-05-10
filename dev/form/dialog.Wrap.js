@@ -11,8 +11,8 @@ import { useTheme } from '@material-ui/core/styles';
 import { Form, post } from './form';
 import { useFyneForm } from '@fyne/ui/form';
 
-import { useSnackbar } from 'notistack'; //https://material-ui.com/components/snackbars/
-import { makeNotifier } from './notify';
+import { makeNotifier, useSnackbar  } from '@fyne/ui/notify';
+
 
 export const DialogWrap = ({startOpen = true, container, ...props}) => {
   const theme = useTheme();
