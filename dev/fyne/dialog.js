@@ -8,7 +8,7 @@ const div  = document.createElement("div");
 // this is to be moved inside hubster at some point
 let isBound = false;
 
-export const config = fyneApp(app_id);
+export const config = fyneApp({app_id});
 
 export const render = (data) => {
     

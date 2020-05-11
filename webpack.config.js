@@ -270,7 +270,7 @@ module.exports = (env, argv) => {
   const withDevServer = bundles => {
     bundles[0] = Object.assign({}, bundles[0], {
       devServer: {
-        port: 9002,
+        port: 9999,
         compress: true,
         open: true,
         hot: true,
