@@ -36,15 +36,15 @@ export const App = ({
         FyneApp,});
     
     return (
-        <React.Fragment>
-            <StylesProvider jss={jss}>
-                <ThemeProvider theme={theme}>
+        // <React.Fragment>
+            <ThemeProvider theme={theme}>
+                <StylesProvider jss={jss}>
                     <SnackbarProvider preventDuplicate maxSnack={3}>
                         <FyneApp {...{data, ...props}}/>
                     </SnackbarProvider>
-                </ThemeProvider>
-            </StylesProvider>
-        </React.Fragment>
+                </StylesProvider>
+            </ThemeProvider>
+        // </React.Fragment>
     )
     
 }

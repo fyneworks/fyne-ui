@@ -43,34 +43,16 @@ export const useFyneForm = (instanceId, {
     Form,
 	cancel = (...args)=> console.warn('Must supply cancel parameter to useFyneForm', args),
 	submit = (...args)=> console.warn('Must supply submit parameter to useFyneForm', args),
-	initialState = {}
+	initialState = {
+
+	}
 }) => {
 	if(!Form) console.error('Must define Form component to use FyneForm');
 
 	const [ state, setState ] = React.useState( initialState );
-	//const [ data, setData ] = React.useState( initialData );
-    //const [ valid, setValid ] = React.useState( false );
-    //const [ errors, setErrors ] = React.useState({});
-
-	//const _setData = useCallback(newData=> {
-	//	//console.log('useFyneForm setData', newData)
-	//	setData(newData);
-	//});
-	//const _setValid = useCallback(newValid=> {
-	//	//console.log('useFyneForm setValid', newValid)
-	//	setValid(newValid);
-	//});
-	//const _setErrors = useCallback(newErrors=> {
-	//	//console.log('useFyneForm setErrors', newErrors)
-	//	setErrors(newErrors);
-	//});
 
 	const sync = useCallback(({...state})=> {
-		//console.log('useFyneForm sync', state)
 		setState(state);
-		//setData(state.data);
-		//setErrors(state.errors);
-		//setValid(state.valid);
 	});
 
     const FyneForm = useCallback(({...moreprops})=> {
@@ -94,9 +76,6 @@ export const useFyneForm = (instanceId, {
 		FyneForm, 
 		state,
 		setState,
-        //data,
-        //valid,
-		//errors,
 		cancel,
 		submit,
 	}
