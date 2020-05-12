@@ -20,7 +20,7 @@ export const ready = run =>{
     //if (document.readyState!='loading')
     //if (document.readyState && /loaded|complete/.test(document.readyState))
     //if (document.readyState === "complete" || (!document.attachEvent && document.readyState === "interactive"))
-    if (document.readyState && /loaded|complete/.test(document.readyState))
+    if (document.readyState && /loaded|complete|interactive/.test(document.readyState))
         run();
         
     // modern browsers
