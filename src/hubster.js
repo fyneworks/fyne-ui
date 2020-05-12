@@ -1,5 +1,10 @@
 import { context } from './context';
-import { createHub } from 'hubster-js'
+
+import Hubster from 'hubster-js';
+const { createHub } = Hubster;
+//console.log('Hubster', Hubster);
+//console.log('createHub', createHub);
+
 
 export const fyneHub = createHub;
 
@@ -19,7 +24,7 @@ export const fyneAppConfig = ({app_id,ele_id,file}) => {
 };
 
 export const fyneApp = ({app_id,ele_id,script,...props}) => {
-    console.log('fyneApp >>>>>>>>>>>>>', {context,app_id,ele_id,script,props});
+    //console.log('fyneApp >>>>>>>>>>>>>', {context,app_id,ele_id,script,props});
 
     const config = {
         app_id,

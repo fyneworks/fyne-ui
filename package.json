@@ -75,7 +75,7 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.2.0",
-    "hubster-js": "0.0.11",
+    "hubster-js": "0.0.13",
     "jss": "^10.1.1",
     "node-libs-browser": "^2.2.1",
     "node-sass": "^4.14.1",
