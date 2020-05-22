@@ -35,9 +35,9 @@ export const headers = ({method, url})=> {
     const { license, domain } = context;
     return {
         "Content-Type": "application/json",
+        domain,
         license,
-        //domain,
-        signature: signature({license,domain,method,url})
+        //signature: signature({license,domain,method,url})
     }
 }
 

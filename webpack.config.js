@@ -29,7 +29,8 @@ module.exports = (env, argv) => {
 	var devtool = isDevelopmentMode
 		? "eval-source-map"
 		: "nosources-source-map"
-	;
+  ;
+  // see https://webpack.js.org/configuration/devtool/
  
 	// By default, each module is identified based on Webpack's internal ordering. This
 	// can cause issues for cache-busting and long-term browser caching as a localized
@@ -207,7 +208,7 @@ module.exports = (env, argv) => {
         umdNamedDefine: true  
       },
       optimization: {
-        minimize: false,
+        //minimize: false,
       },
       plugins: commonPlugins,
       externals: prodExternals, // don't bundle react or react-dom
