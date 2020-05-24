@@ -21,20 +21,20 @@ export const EnvironmentConstants = (app_env = {}) => {
     return o;
 }
 
-export const environment = n => {
+export const environment = (n, app_env = lib_env) => {
     const u = n.replace(/\s+/gi,'_').toUpperCase();
     //const l = n.replace(/\s+/gi,'_').toLowerCase();
     ////console.log('Fyneworks config constant', u, l);
-    return process.env['REACT_APP_FWX_'+u] || process.env['FWX_'+u];
+    return app_env['REACT_APP_FWX_'+u] || app_env['FWX_'+u];
     // see https://create-react-app.dev/docs/adding-custom-environment-variables/
 }
 
-export const constant = n => {
+export const constant = (n, app_env = lib_env) => {
     const dataset = ()=> Object.assign({}, document.body.dataset);
     const u = n.replace(/\s+/gi,'_').toUpperCase();
     const l = n.replace(/\s+/gi,'_').toLowerCase();
     ////console.log('Fyneworks config constant', u, l);
-    return process.env['REACT_APP_FWX_'+u] || process.env['FWX_'+u] || window['FWX_'+u] || dataset[l];
+    return app_env['FWX_'+u] || window['FWX_'+u] || dataset[l];
     // see https://create-react-app.dev/docs/adding-custom-environment-variables/
 }
 
@@ -62,6 +62,8 @@ export const scriptProp = n => {
 export const ParseContext = (app_env = lib_env, defaults, overrides)=> {
     //console.log('ParseContext invoked');
 
+    const cur_env = EnvironmentConstants(app_env);
+
     let context = Object.assign(
         {}, 
 
@@ -69,19 +71,19 @@ export const ParseContext = (app_env = lib_env, defaults, overrides)=> {
         defaults || {},
 
         // expose all environment vars if needed
-        EnvironmentConstants(app_env), //{ env:Environment() },
+        cur_env, //{ env:Environment() },
 
         // run-time defaults
         {
-            edition: scriptProp('edition') || constant('edition') || setting('edition') || window['EDITION'],
-            timezone: scriptProp('timezone') || constant('timezone') || setting('timezone'), //  window['FWX_TIMEZONE'] || dataset.timezone,
-            license: scriptProp('license') || constant('license') || setting('license'),
-            domain: scriptProp('domain') || constant('domain') || setting('domain'), //  window['FWX_DOMAIN'] || dataset.domain,
-            base: scriptProp('base') || constant('base') || setting('base'),
-            path: scriptProp('API_PATH') || constant('API_PATH') || setting('API_PATH') || '/api',
-            cur: scriptProp('cur') || constant('cur') || setting('cur'), //  window['FWX_CUR'] || dataset.cur,
-            cursym: scriptProp('cursym') || constant('cursym') || setting('cursym'), //  window['FWX_CURSYM'] || dataset.cursym,
-            curdec: scriptProp('curdec') || constant('curdec') || setting('curdec'), //  window['FWX_CURDEC'] || dataset.curdec,
+            edition: scriptProp('edition') || constant('edition',cur_env) || setting('edition') || window['EDITION'],
+            timezone: scriptProp('timezone') || constant('timezone',cur_env) || setting('timezone'), //  window['FWX_TIMEZONE'] || dataset.timezone,
+            license: scriptProp('license') || constant('license',cur_env) || setting('license'),
+            domain: scriptProp('domain') || constant('domain',cur_env) || setting('domain'), //  window['FWX_DOMAIN'] || dataset.domain,
+            base: scriptProp('base') || constant('base',cur_env) || setting('base'),
+            path: scriptProp('API_PATH') || constant('API_PATH',cur_env) || setting('API_PATH') || '/api',
+            cur: scriptProp('cur') || constant('cur',cur_env) || setting('cur'), //  window['FWX_CUR'] || dataset.cur,
+            cursym: scriptProp('cursym') || constant('cursym',cur_env) || setting('cursym'), //  window['FWX_CURSYM'] || dataset.cursym,
+            curdec: scriptProp('curdec') || constant('curdec',cur_env) || setting('curdec'), //  window['FWX_CURDEC'] || dataset.curdec,
 
         },
 
