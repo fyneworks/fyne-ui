@@ -7,13 +7,13 @@ const { useCallback } = React;//import { useCallback } from 'react';
 import { Analytics } from './analytics';
 import { Antispam } from './antispam';
 import { Endpoint } from './network';
-import { context } from './context';
+//import { context } from './context';
 
-export const FyneFormAPI = (func) => {
+export const FyneFormAPI = (url) => {
       //console.log('FyneFormAPI', {func});
 
-      const base = context.API_BASE;
-      const url = (base || '') + func;
+      //const base = context.API_BASE;
+      //const url = (base || '') + func;
       const endpoint = Endpoint(url);
       
       const submit = (data) => {
@@ -31,7 +31,6 @@ export const FyneFormAPI = (func) => {
       return {
             url,
             submit,
-            base,
 			endpoint,
 			post: submit,
       }

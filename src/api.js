@@ -68,10 +68,10 @@ export const FyneProvider = ({...props}) => {
     )
 };
 
-export const useFyneAPI = (func, dependencies = []) => {
+export const useFyneAPI = (url, dependencies = []) => {
     
-    const baseUrl = context.API_BASE + func;
-    //console.log('useFyneAPI', { func, dependencies });
+    //const url = context.API_BASE + func;
+    //console.log('useFyneAPI', { url, dependencies });
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -80,10 +80,10 @@ export const useFyneAPI = (func, dependencies = []) => {
         setLoading(true);
 
         const method = options.method || GET;
-        const endpoint = Endpoint(baseUrl);
+        const endpoint = Endpoint(url);
         const request = endpoint[method];
 
-        //console.log('useFyneAPI run', {method, options, baseUrl, endpoint, request});
+        //console.log('useFyneAPI run', {method, options, url, endpoint, request});
 
         return new Promise((resolve, reject) => 
             request(options)
@@ -129,13 +129,13 @@ export const useFyneAPI = (func, dependencies = []) => {
     }
 }
 
-export const useFyneAPI____USEHTTP = (func, dependencies) => {
+export const useFyneAPI____USEHTTP = (url, dependencies) => {
 
     //const [ data, setData ] = useState({});
 
-    const url = context.API_BASE + func;
+    //const url = context.API_BASE + func;
 
-    //console.log('useFyneAPI', { func, dependencies });
+    //console.log('useFyneAPI', { url, dependencies });
 
     const { 
         request,
