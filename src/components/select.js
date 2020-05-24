@@ -1,3 +1,29 @@
+/*
+
+
+
+
+
+
+
+
+
+
+this is a bit test
+bit.dev
+component publishin, etc
+
+
+
+
+
+
+
+
+
+*/
+
+
 import React from 'react';
 //const React = require('react');
 

@@ -19,11 +19,13 @@ export const FyneSelect = ({
     initialValue = null,
     k,
     e,
+    url,
     ...props
 }) => {
 
+    const endpoint = url || `/api/cms/dropdown/${e}`;
     const [ options, setOptions ] = useState([]);
-    const { error, loading, get, post } = useFyneAPI(`/dropdown/${e}`);
+    const { error, loading, get, post } = useFyneAPI(endpoint);
 
     useEffect(() => {
         OptionsLoad();
