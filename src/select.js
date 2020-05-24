@@ -23,7 +23,7 @@ export const FyneSelect = ({
 }) => {
 
     const [ options, setOptions ] = useState([]);
-    const { error, loading, get, post } = useFyneAPI(`dropdown/${e}`);
+    const { error, loading, get, post } = useFyneAPI(`/dropdown/${e}`);
 
     useEffect(() => {
         OptionsLoad();
