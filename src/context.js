@@ -8,10 +8,10 @@ import { script } from  './helpers/currentScript';
 //console.log('FYNEWORKS CONTEXT process.env', process.env)
 const APP_BASE = script.src_path || process.env.PATH || './';
 
-export const EnvironmentConstants = () => {
+export const EnvironmentConstants = (app_env = {}) => {
     let x = /^(REACT_APP_)?(FWX_)/gi;
     let o = { APP_BASE };
-    let i = Object.assign({}, process.env)
+    let i = Object.assign({}, process.env, app_env);
     let k = Object.keys(i).filter(n=>n.match(x));
     k.forEach(n=>{ o[n.replace(x,'FWX_').toUpperCase()] = i[n]});
     return o;
@@ -55,7 +55,7 @@ export const scriptProp = n => {
 
 ////console.log('Fyneworks config EnvironmentConstants()', EnvironmentConstants())
 
-export const ParseContext = (defaults, overrides)=> {
+export const ParseContext = (app_env, defaults, overrides)=> {
     //console.log('ParseContext invoked');
 
     let context = Object.assign(
@@ -65,7 +65,7 @@ export const ParseContext = (defaults, overrides)=> {
         defaults || {},
 
         // expose all environment vars if needed
-        EnvironmentConstants(), //{ env:Environment() },
+        EnvironmentConstants(app_env), //{ env:Environment() },
 
         // run-time defaults
         {
