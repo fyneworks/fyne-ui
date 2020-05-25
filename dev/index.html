@@ -20,7 +20,7 @@
   <meta name="theme-color" content="#ffffff">
 </head>
 <body>
-    <a href="./"><h1>fyneUI on Netlify</h1></a>
+    <a href="./"><h1>fyneUI Library</h1></a>
     <p>
       This a a sample page of how Fyneworks enquiry forms can be integrated with any website
     </p>
@@ -31,7 +31,7 @@
       fyne.js will listen for any triggers (ie.: a click), then it will load and launch the form on demand.
     </p>
     <p>
-      Example 1, <strong>lazy loaded as a dialog</strong> <a href="#" rel="fyne-form">click here to make an enquiry</a>.
+      Example 1, <strong>lazy loaded as a dialog</strong> <a href="#" rel="<%= REACT_APP_FWX_FORM %>-dialog">click here to make an enquiry</a>.
     </p>
     <p>
       Example 2, <strong>lazy-loaded into an element</strong> <a href="./inline.html">rendered in a div</a>
@@ -43,7 +43,7 @@
       Example 4, <a href="./direct.html">rendered in a div</a>, all dependencies fully loaded in a single bundle
     </p>
     <p>
-      Example 5, invoke fyneworks programatically by running <code>fyneworks.show()</code>
+      Example 5, invoke fyneworks programatically by running <code>fwx.fyne.<%= REACT_APP_FWX_FORM %>.show()</code>
     </p>
 
 </html>

@@ -83,12 +83,13 @@ export const useFyneAPI = (url, dependencies = []) => {
         const endpoint = Endpoint(url);
         const request = endpoint[method];
 
-        //console.log('useFyneAPI run', {method, options, url, endpoint, request});
+        console.log('useFyneAPI run', {method, options, url, endpoint, request});
 
         return new Promise((resolve, reject) => 
             request(options)
-            .then(res=>res.json())
+            .then(res=> typeof(res.json)=='function' ? res.json() : res )
             .then(res=>{
+                console.log('useFyneAPI res', {res, req:{method, options, url, endpoint, request}});
                 setLoading(false);
                 if(res.status=='y'){
                     resolve({ data:res.data, status:res.status });

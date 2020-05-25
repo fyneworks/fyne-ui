@@ -68,7 +68,12 @@ export const request = (url, {method = GET, body = null, query = {}, ...options}
                 ...options
             }
         )
-        .then(res=>res.json())
+
+        // this forces everything to be json
+        //
+        .then(res=>res.json()) 
+
+
         .then(res=>{
             //console.log('Fyne request resp!', res, {url, method, body, options, queryStr, endpoint});
             

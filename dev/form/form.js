@@ -1,195 +1,215 @@
 import React, { useRef, useEffect, useCallback } from 'react';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
-import { format } from 'date-fns'
-import { FyneSelect } from '@fyne/ui/select';
-import { FyneFormAPI } from '@fyne/ui/form';
 import LoadingOverlay from 'react-loading-overlay';
+import MuiPhoneNumber from 'material-ui-phone-number'
+import TextField from '@material-ui/core/TextField';
 
-import { makeNotifier, useSnackbar  } from '@fyne/ui/notify';
+import { useSnackbar, makeNotifier } from '@fyne/ui/notify';
+
+import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
+import MomentUtils from '@date-io/moment';
+
+import { useFormik } from 'formik';
+import { validationSchema } from './validation';
+
+import { FyneFormAPI } from '@fyne/ui/form';
+import { FyneSelect } from '@fyne/ui/select';
+import { ParseContext } from '@fyne/ui/context';
+const context = ParseContext(process.env);
 
 export const action = window.API_ACTION || process.env.FWX_API_ACTION || '/cms/forms';
-
 export const form = FyneFormAPI(action);
 
 export const post = data => {
 
-    console.log('Form post', data);
+    //console.log('Form post', data);
 
     return new Promise((resolve,reject)=>{
         
-        console.log('Form post data', data);
+        //console.log('Form post data', data);
 
         form.post(data)
         .then(res=>{
-            console.log('form post res', res);
+            //console.log('form post res', res);
             resolve(res);
         })
         .catch(err=>{
-            console.log('form post err', err);
+            //console.log('form post err', err);
             reject(err);
         })
     })
 };
 
-export const validate = data => {
-  let e = {};
-  if(!data.name) e['name'] = 'please enter your name';
-  if(!data.phone) e['phone'] = 'please enter your phone';
-  if(!data.email) e['email'] = 'please enter your email';
-  let validation = { errors:e, valid:Object.keys(e).length===0 };
-  console.log('Form validate', {data,validation});
-  return validation;
-}
-
 export const Form = ({
   FyneHook = null,
-  initialData = {
+  initialValues = {
     name: '', 
     phone: '', 
     email: '', 
-    date: '', 
-    sector: '',
+    message: '',
+    date: new Date()
   }
 }) => {
-  const firstRender = useRef(true);
+  const notifier = !FyneHook && makeNotifier(useSnackbar());
 
-  const snackbarHook = useSnackbar();
-  const notifier = snackbarHook && makeNotifier(snackbarHook);
+  const onSubmit = useCallback((values,Formik) => {
+    //console.log('form submit', {values,Formik,validationSchema});
 
-  const [ busy, setBusy ] = React.useState(false);
-  const [ errors, setErrors ] = React.useState({});
-  const [ valid, setValid ] = React.useState({});
-  const [ data, setData ] = React.useState( initialData );
+    const {isValid,errors,touched,dirty,setTouched,setErrors} = Formik;
 
+    if(!!FyneHook){
+      //console.log('form submit with FyneHook', {values,valid,errors,validationSchema});
+      Formik.submit({values,validationSchema,isValid,errors,touched,dirty,setTouched,setErrors})
 
-  // for every change in our state this will be fired
-  // we add validation here and disable the save button if required
-  useEffect(() => {
-  
-    // we want to skip validation on first render
-    if (firstRender.current) {
-      firstRender.current = false
-      return
+      return;
     }
-
-    console.log('Form validate in useEffect');
-    const validation = formValidation();
-    console.log('Form validate in useEffect result', validation);
-
-    setValid(validation.valid);
-    FyneHook && FyneHook.sync({ data, ...validation });
     
-  }, [ data ]);
+    //validationSchema.isValid(values).then(values=>{
+    
+        post(values)
+        .then( res=> {
+          //console.log('form submit', { res, values });
+          notifier.success('This is a success message!');//, { variant:"success" });
+        })
+        .catch( err=> {
+          //console.log('form submit', { err, values });
+          notifier.error('Could not submit form');//, { variant:"error" });
+        })
+        .finally((res)=>{
+          //console.log('form finally', { res, values });
+          setSubmitting(false); // https://jaredpalmer.com/formik/docs/guides/form-submission
+        })
 
-  // state for FyneHook
-  const state = { data, valid, errors };
+    //})
+
+  });
+
+  const Formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit,
+  });
+  const {
+    isValid,
+    dirty,
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleSubmit,
+    isSubmitting,
+    setSubmitting,
+    setErrors,
+    setTouched,
+    setValues
+  } = Formik;
+  //console.log('Form', {isValid, FyneHook, Formik});
   
-  const formValidation = useCallback((dataToValidate = data)=> {
-    return validate(dataToValidate);
-  }, [ data ]);
-
   const handleChange = useCallback((prop, value) => {
-		console.log( 'Form Updated', prop, value, data );
-		window.Hubster && window.Hubster.dispatch('form-updated', { data: { prop, value } })
+    //console.log( 'Form Updated', prop, value, values );
+    window.Hubster && window.Hubster.dispatch('form-updated', { values: { prop, value } })
     const update = { [prop]: value };
-    const newData = { ...data, ...update };
-    setData(newData);
-  }, [ data ]);
-  
-  const handleError = useCallback((prop, message) => {
-		console.log( 'Form error', prop, message, data );
-		window.Hubster && window.Hubster.dispatch('form-error', { data: { prop, message } });
-		notifier.error(message, {});
-  }, [ data ]);
+    const newValues = { ...values, ...update };
+    //console.log( 'Form Updated', prop, value, {values, newValues} );
+    setValues(newValues);
+  }, [ values ]);
 
-  const handleCancel = useCallback(()=> {
-		console.log('Form cancel', {data});
-		notifier.warning("Booking cancelled");
-		quit();
-    FyneHook && FyneHook.cancel(state);
-  }, [ data ]);
 
-  const handleSubmit = useCallback(() => {
-    console.log('Form submit', {data});
+  useEffect(()=>{
+    FyneHook && FyneHook.sync({values,validationSchema,isValid,errors,touched,dirty,setTouched,setErrors})
+  }, [ values, errors, isValid, touched ])
 
-    const validation = formValidation();
-    if(validation && validation.valid){
 
-      if(FyneHook){
-        console.log('Form valid! submit via FyneHook', {state});
-        return FyneHook.submit(state);
-      }
-      
-      notifier && notifier.success("Thank you!");
-      
-      console.log('Form valid! submit post(data);', {data});
-      
-      setBusy(true)
-      post(data)
-      .then(res=>{
-        setBusy(false)
-        console.log("Success submitting form", {data, res});
-        setData({});
 
-      })
-      .catch(err=>{
-        console.error("Error submitting form", {data, err});
 
-      })
 
-    }
-    else{
-      console.log('Form NOT VALID! report errors;', {validation,data});
-
-      const firstError = Object.keys(validation.errors)[0];
-      const firstAlert = validation.errors[firstError];
-      handleError(firstError, firstAlert);
-
-      setErrors(validation.errors);
-    }
-
-  }, [ data ]);
-
-  console.log('Form state', {valid,data,errors});
+console.log('Render form', {values,touched,errors,isValid});
+console.log('Render form: email', values.email, touched.email, errors.email);
+console.log('Render form: name', values.name, touched.name, errors.name);
+console.log('Render form: date', values.date, touched.date, errors.date);
+console.log('Render form: message', values.message, touched.message, errors.message);
 
   return (
     <React.Fragment>
       <LoadingOverlay
-        active={busy}
+        active={isSubmitting}
         spinner
         text='Sending'
       >
-        <TextField value={data.name || ''} onChange={event=>handleChange('name',event.target.value)}
-          type="text" id="name" label="Name"
-          fullWidth margin="dense"
-          autoFocus
-        />
+        <form onSubmit={handleSubmit}>
 
-        <TextField value={data.phone || ''} onChange={event=>handleChange('phone',event.target.value)}
-          type="tel" id="phone" label="Phone"
-          fullWidth margin="dense"
-        />
 
-        <TextField value={data.email || ''} onChange={event=>handleChange('email',event.target.value)}
-          type="email" id="email" label="Email Address"
-          fullWidth margin="dense"
-        />
+          <FyneSelect url={context.API_BASE+"/dropdown/estimate/products"} name="product" creatable={false}
+            onChange={choice=>{ console.log({choice}) }}
+          />
 
-        <FyneSelect e="sector" name="source" creatable={false}/>
+          <React.Fragment>
+            TODO: list of products selected
+          </React.Fragment>
 
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DatePicker value={data.date || ''} onChange={value=>handleChange('date',format(value,'yyyy-MM-dd'))}
-              fullWidth margin="dense"
-              type="text" id="date" label="Date of Visit"
-            />
-        </MuiPickersUtilsProvider>
+          <TextField value={values.name || ''} onChange={event=>handleChange('name',event.target.value)}
+            type="text" id="name" label="Name"
+            autoComplete="name"
+            onBlur={handleBlur}
+            error={!!touched['name'] && !!errors['name']} helperText={errors['name'] || ''}
+            fullWidth margin="dense"
+            //autoFocus
+          />
 
-        <Button onClick={event=>handleSubmit()} color="primary">
-          Test Submit Button
-        </Button>
+          <MuiPhoneNumber value={values.phone || ''}
+            //onChange={event=>handleChange('phone',event.target.value)}
+            onChange={value=>handleChange('phone',value)} 
+            defaultCountry={'gb'}
+            type="tel" id="phone" label="Phone"
+            autoComplete="tel"
+            onBlur={handleBlur}
+            error={!!touched['phone'] && !!errors['phone']} helperText={errors['phone'] || ''}
+            fullWidth margin="dense"
+          />
+
+          <TextField value={values.email || ''} onChange={event=>handleChange('email',event.target.value)}
+            type="email" id="email" label="Email Address"
+            autoComplete="email"
+            onBlur={handleBlur}
+            error={!!touched['email'] && !!errors['email']} helperText={errors['email'] || ''}
+            fullWidth margin="dense"
+          />
+
+
+
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+              <DatePicker 
+                disablePast={true}
+                autoOk={true}
+                value={values.date} 
+                onChange={value=>{
+                  //console.log('CHANGE', {value});
+                  handleChange('date',value.format('yyyy-MM-DD'))
+                }}
+                fullWidth margin="dense"
+
+                //shouldDisableDate={shouldDisableDate({SCHEDULE, schedule, shipping, scope:SCOPE_COLLECT})}
+                //renderDay={renderDay({SCHEDULE, schedule, shipping, scope:SCOPE_COLLECT})}
+                
+                margin="dense"
+                type="text"
+                error={!!touched['date'] && !!errors['date']} helperText={errors['date'] || ''}
+                
+                id="date" 
+                name="date" 
+                label="Date of Visit"
+              />
+          </MuiPickersUtilsProvider>
+
+          {!FyneHook && (
+            <React.Fragment>
+              <Button onClick={handleSubmit} color="primary">
+                Send
+              </Button>
+            </React.Fragment>
+          )}
+
+        </form>
 
       </LoadingOverlay>
     </React.Fragment>

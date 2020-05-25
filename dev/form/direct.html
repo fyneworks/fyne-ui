@@ -18,9 +18,24 @@
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
   <meta name="theme-color" content="#ffffff">
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5FXBQLQ');</script>
+  <!-- End Google Tag Manager -->
+
 </head>
 <body>
-    <a href="./"><h1>fyneUI</h1></a>
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5FXBQLQ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  
+    <a href="./"><h1>Demo Form</h1></a>
     <p>
       This example shows how a Fyneworks enquiry forms can be integrated with any website
     </p>
@@ -28,11 +43,11 @@
       The example below renders the form directly on the page, <a href="./direct.js">all dependencies are loaded in a single file</a>.
     </p>
     <div style="border: #009 solid 0px; min-height:100px; width:100%; margin:20px; display:block; box-sizing:border-box;">
-        <div id="fwxfrm-inline"></div>
+        <div id="demo-inline"></div>
     </div>
 
     <p>
-      You can also invoke fyneworks programatically by running <code>fyneworks.init()</code>
+      You can also invoke fyneworks programatically by running <code>fwx.fyne.<%= REACT_APP_FWX_FORM %>.show()</code>
     </p>
     <p>
       It can also be <a href="./inline.html">lazy loaded</a> or <a href="./dialog.html">loaded as a dialog</a>

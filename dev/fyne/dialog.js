@@ -1,14 +1,18 @@
-import { fyneApp } from '@fyne/ui/hubster'
+import { AppID } from './globals';
+import { fyneApp } from '@fyne/ui/hubster';
+import { ThisHub } from './hub';
 
-export const app_id = "dialog";
-export const ele_id = window.FYNE_DIALOG_ID || "fwxfrm-dialog";
+export const script = "dialog.js";
+export const app_id = AppID('dialog');
+export const ele_id = AppID('dialog');
+export const className = AppID('dialog');
 
 const div  = document.createElement("div");
 
 // this is to be moved inside hubster at some point
 let isBound = false;
 
-export const config = fyneApp({app_id});
+export const config = fyneApp({app_id,ele_id,script});
 
 export const render = (data) => {
     
@@ -17,22 +21,23 @@ export const render = (data) => {
         document.body.appendChild(div)
     }
     if(!isBound){
-        window.Hub.bind([app_id]);
+        ThisHub.bind([app_id]);
         isBound = true;
     }
 
-    if(!!window.showAgain){
-        console.log("Fyne don't render, just show again");
-        window.showAgain();
+    //console.log('REVIVE? consume', app_id+'__revive', window[app_id+'__revive'])
+    if(!!window[app_id+'__revive']){
+        //console.log("Fyne don't render, just show again");
+        window[app_id+'__revive']()
     }
     
-    console.log('HUB DIALOG render', data, this, {app_id, ele_id, config, div});
-    window.Hub.render([{
+    //console.log('HUB DIALOG render', data, this, {app_id, ele_id, config, div});
+    ThisHub.render([{
         id: app_id,
         props: {
             data,
             destroy: (args) => {
-                console.log('Hub destroy', args);
+                //console.log('Hub destroy', args);
                 Hub.destroy([app_id]);
             }
         },
@@ -43,7 +48,7 @@ export const render = (data) => {
           // reasons described here https://github.com/mui-org/material-ui/issues/16223
         },
         onRender: args => {
-            console.log('HUB DIALOG rendered', args);
+            //console.log('HUB DIALOG rendered', args);
         }
     }]);
 }

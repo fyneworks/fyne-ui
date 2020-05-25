@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, submit } from './form';
+//import { useFyneForm } from '@fyne/ui/form';
 
 import { Button } from '@material-ui/core'
 
@@ -11,12 +12,12 @@ export const InlineWrap = ({element, ...props}) => {
   // }
 // 
   // const send = () => {
-    // console.log('InlineWrap.send', {data, errors});
+    // //console.log('InlineWrap.send', {data, errors});
     // _submit(data);
     // done(data);
   // }
 
-  console.log("InlineWrap",{props})
+  //console.log("InlineWrap",{props})
 
   return (
     <React.Fragment>

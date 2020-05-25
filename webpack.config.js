@@ -215,6 +215,13 @@ module.exports = (env, argv) => {
     })
   );
 
+  const WebpackHtmlPluginOptions = {
+    meta: { viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no' }, 
+    scriptLoading: 'defer', 
+    inject: 'body', 
+    templateParameters: ENV
+  };
+
 
   // demo bundles
   const demoBundles = [
@@ -226,10 +233,10 @@ module.exports = (env, argv) => {
       plugins: []
         .concat([new CleanWebpackPlugin()])
         .concat(commonPlugins)
-        .concat([new HtmlWebpackPlugin({ filename: 'index.html', template: './dev/index.html'})])
-        .concat([new HtmlWebpackPlugin({ filename: 'dialog.html', template: './dev/form/dialog.html'})])
-        .concat([new HtmlWebpackPlugin({ filename: 'inline.html', template: './dev/form/inline.html' })])
-        .concat([new HtmlWebpackPlugin({ filename: 'dynamic.html', template: './dev/form/dynamic.html' })])
+        .concat([new HtmlWebpackPlugin({ filename: 'index.html',   template: './dev/index.html'        , ...WebpackHtmlPluginOptions })])
+        .concat([new HtmlWebpackPlugin({ filename: 'dialog.html',  template: './dev/form/dialog.html'  , ...WebpackHtmlPluginOptions })])
+        .concat([new HtmlWebpackPlugin({ filename: 'inline.html',  template: './dev/form/inline.html'  , ...WebpackHtmlPluginOptions })])
+        .concat([new HtmlWebpackPlugin({ filename: 'dynamic.html', template: './dev/form/dynamic.html' , ...WebpackHtmlPluginOptions })])
         .concat([new CopyWebpackPlugin([{ from: 'favicon' }]),])
         .concat([new CopyWebpackPlugin([{ from: 'static' }]),]),
       externals: demoExternals, // don't bundle react or react-dom
@@ -253,14 +260,14 @@ module.exports = (env, argv) => {
     Object.assign({}, baseConfig, {
       entry: {main:path.resolve(__dirname,'dev','form','direct.js')},
       output: { path:path.resolve(__dirname, './demo'),filename:'direct.js'},
-      plugins: commonPlugins.concat([new HtmlWebpackPlugin({ filename: 'direct.html', template: './dev/form/direct.html'})]),
+      plugins: commonPlugins.concat([new HtmlWebpackPlugin({ filename: 'direct.html', template: './dev/form/direct.html', ...WebpackHtmlPluginOptions })]),
     }),
   
     // the app without fyneUI integration
     Object.assign({}, baseConfig, {
       entry: {main:path.resolve(__dirname,'dev','form','plain.js')},
       output: { path:path.resolve(__dirname, './demo'),filename:'plain.js'},
-      plugins: commonPlugins.concat([new HtmlWebpackPlugin({ filename: 'plain.html', template: './dev/form/plain.html'})]),
+      plugins: commonPlugins.concat([new HtmlWebpackPlugin({ filename: 'plain.html', template: './dev/form/plain.html', ...WebpackHtmlPluginOptions })]),
     }),
 
   ];
