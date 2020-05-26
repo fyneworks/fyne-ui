@@ -36,7 +36,7 @@ export const FyneSelect = ({
 
     const FyneworksGet = query => {
         //query = {...query, test:1, hello:'world'}
-        console.log('FyneworksGet', query);
+        //console.log('FyneworksGet', query);
         return get( query )
     }
     const FyneworksPost = body => post( body )
@@ -46,27 +46,27 @@ export const FyneSelect = ({
 
     const OptionsLoad = () =>
         OptionsGet().then(res => {
-            console.log('fynejobs: OptionsLoad > OptionsGet',{res, filterOptions, filterOption})
+            //console.log('fyneui: select: OptionsLoad > OptionsGet',{res, filterOptions, filterOption})
             const data = res && res.data || [];
             const loadedOptions = filterOptions(data.map( row => ({...row, value:row[k], label: row.name}) )).filter(filterOption);
-            console.log('fynejobs: OptionsLoad > OptionsGet > loadedOptions',{data,loadedOptions})
+            //console.log('fyneui: select: OptionsLoad > OptionsGet > loadedOptions',{data,loadedOptions})
             setOptions(loadedOptions);
             onOptionsLoaded(loadedOptions);
             
-            console.log('fynejobs: OptionsLoad > initialValue',{initialValue})
+            //console.log('fyneui: select: OptionsLoad > initialValue',{initialValue})
             if(!!initialValue){
                 if(initialValue==="first"){
-                    console.log('fynejobs: OptionsLoad > initialValue first!', {initialValue,value:loadedOptions[0]});
+                    //console.log('fyneui: select: OptionsLoad > initialValue first!', {initialValue,value:loadedOptions[0]});
                     onChange(loadedOptions[0]);
                 }
                 else{
                     if(!!Array.isArray(initialValue) && initialValue.length===1){
                         const initialData = initialValue && loadedOptions.filter( row => row.label==initialValue[0]);
                         if(initialData && !!initialData.length){
-                            console.log('fynejobs: OptionsLoad > initialValue matched item in array', {initialValue,value:initialData[0]});
+                            //console.log('fyneui: select: OptionsLoad > initialValue matched item in array', {initialValue,value:initialData[0]});
                             onChange(initialData[0]);
                         };
-                        console.log('fynejobs: initialData',e,{initialValue, initialData});
+                        //console.log('fyneui: select: initialData',e,{initialValue, initialData});
                     }
                 }
             }
@@ -77,11 +77,11 @@ export const FyneSelect = ({
     const OptionsAdd = (name) =>  
         OptionsPost({name})
         .then(res=>{
-            console.log('fynejobs: select addHandler res',{res});
+            //console.log('fyneui: select: select addHandler res',{res});
             if(!!res && !!res.data && res.status=='y'){
                 //const newOption = { [k]:res.data.i, name };
                 const newOption = { value:res.data.i, label:name };
-                console.log('fynejobs: select addHandler newOption',{newOption});
+                //console.log('fyneui: select: select addHandler newOption',{newOption});
                 setOptions((options||[]).concat([newOption]));
                 return newOption; // available to the next "then" statement
             }
@@ -97,7 +97,7 @@ export const FyneSelect = ({
                 const name = event.target.value;
                 OptionsAdd(name)
                 .then(newData=>{
-                    console.log('fynejobs: keyDown newData',{newData})
+                    //console.log('fyneui: select: keyDown newData',{newData})
                     onKeyDown(event);
                 })
 
@@ -112,7 +112,7 @@ export const FyneSelect = ({
                 const name = data.label;
                 OptionsAdd(name)
                 .then(newData=>{
-                    console.log('fynejobs: onChange newData',{newData})
+                    //console.log('fyneui: select: onChange newData',{newData})
                     onChange(newData);
                 })
 
@@ -123,7 +123,7 @@ export const FyneSelect = ({
         }
     };
     
-    console.log('fynejobs: render select', props.value);
+    //console.log('fyneui: select: render select', props.value);
       
     return (
         <CreatableSelect
