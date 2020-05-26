@@ -56,14 +56,14 @@ export const FyneSelect = ({
             console.log('fynejobs: OptionsLoad > initialValue',{initialValue})
             if(!!initialValue){
                 if(initialValue==="first"){
-                    console.log('fynejobs: OptionsLoad > initialValue first!');
+                    console.log('fynejobs: OptionsLoad > initialValue first!', {initialValue,value:loadedOptions[0]});
                     onChange(loadedOptions[0]);
                 }
                 else{
                     if(!!Array.isArray(initialValue) && initialValue.length===1){
                         const initialData = initialValue && loadedOptions.filter( row => row.label==initialValue[0]);
                         if(initialData && !!initialData.length){
-                            console.log('fynejobs: OptionsLoad > initialValue matched item in array');
+                            console.log('fynejobs: OptionsLoad > initialValue matched item in array', {initialValue,value:initialData[0]});
                             onChange(initialData[0]);
                         };
                         console.log('fynejobs: initialData',e,{initialValue, initialData});
