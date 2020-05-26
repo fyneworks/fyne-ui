@@ -11,6 +11,9 @@ import { useFyneAPI } from './api';
 export const FyneSelect = ({
     onKeyDown = () => {},
     onChange = () => {},
+    filterOption = (option) => option,
+    filterOptions = (options) => options,
+    onOptionsLoaded = () => {},
     isClearable = true,
     getParams = {},
     addParams = {},
@@ -29,11 +32,11 @@ export const FyneSelect = ({
 
     useEffect(() => {
         OptionsLoad();
-    }, [ /* variables to watch */ edition ]);
+    }, [ /* variables to watch */ url, e, edition, endpoint ]);
 
     const FyneworksGet = query => {
         //query = {...query, test:1, hello:'world'}
-        //console.log('FyneworksGet', query);
+        console.log('FyneworksGet', query);
         return get( query )
     }
     const FyneworksPost = body => post( body )
@@ -43,17 +46,29 @@ export const FyneSelect = ({
 
     const OptionsLoad = () =>
         OptionsGet().then(res => {
+            console.log('fynejobs: OptionsLoad > OptionsGet',{res, filterOptions, filterOption})
             const data = res && res.data || [];
-            const loadedOptions = data.map( row => ({...row, value:row[k], label: row.name}) );
-            ////console.log('fynejobs: OptionsLoad > OptionsGet',{data,loadedOptions})
+            const loadedOptions = filterOptions(data.map( row => ({...row, value:row[k], label: row.name}) )).filter(filterOption);
+            console.log('fynejobs: OptionsLoad > OptionsGet > loadedOptions',{data,loadedOptions})
             setOptions(loadedOptions);
-
-            if(initialValue && initialValue.length==1){
-                const initialData = initialValue && loadedOptions.filter( row => row.label==initialValue[0]);
-                if(initialData && !!initialData.length){
-                    onChange(initialData[0]);
-                };
-                ////console.log('fynejobs: initialData',e,{initialValue, initialData});
+            onOptionsLoaded(loadedOptions);
+            
+            console.log('fynejobs: OptionsLoad > initialValue',{initialValue})
+            if(!!initialValue){
+                if(initialValue==="first"){
+                    console.log('fynejobs: OptionsLoad > initialValue first!');
+                    onChange(loadedOptions[0]);
+                }
+                else{
+                    if(!!Array.isArray(initialValue) && initialValue.length===1){
+                        const initialData = initialValue && loadedOptions.filter( row => row.label==initialValue[0]);
+                        if(initialData && !!initialData.length){
+                            console.log('fynejobs: OptionsLoad > initialValue matched item in array');
+                            onChange(initialData[0]);
+                        };
+                        console.log('fynejobs: initialData',e,{initialValue, initialData});
+                    }
+                }
             }
 
             return loadedOptions;
@@ -62,11 +77,11 @@ export const FyneSelect = ({
     const OptionsAdd = (name) =>  
         OptionsPost({name})
         .then(res=>{
-            ////console.log('fynejobs: select addHandler res',{res});
+            console.log('fynejobs: select addHandler res',{res});
             if(!!res && !!res.data && res.status=='y'){
                 //const newOption = { [k]:res.data.i, name };
                 const newOption = { value:res.data.i, label:name };
-                ////console.log('fynejobs: select addHandler newOption',{newOption});
+                console.log('fynejobs: select addHandler newOption',{newOption});
                 setOptions((options||[]).concat([newOption]));
                 return newOption; // available to the next "then" statement
             }
@@ -82,7 +97,7 @@ export const FyneSelect = ({
                 const name = event.target.value;
                 OptionsAdd(name)
                 .then(newData=>{
-                    ////console.log('fynejobs: keyDown newData',{newData})
+                    console.log('fynejobs: keyDown newData',{newData})
                     onKeyDown(event);
                 })
 
@@ -97,7 +112,7 @@ export const FyneSelect = ({
                 const name = data.label;
                 OptionsAdd(name)
                 .then(newData=>{
-                    ////console.log('fynejobs: onChange newData',{newData})
+                    console.log('fynejobs: onChange newData',{newData})
                     onChange(newData);
                 })
 
@@ -108,7 +123,7 @@ export const FyneSelect = ({
         }
     };
     
-    ////console.log('fynejobs: render select', props.value);
+    console.log('fynejobs: render select', props.value);
       
     return (
         <CreatableSelect

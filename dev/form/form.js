@@ -106,11 +106,11 @@ export const Form = ({
   //console.log('Form', {isValid, FyneHook, Formik});
   
   const handleChange = useCallback((prop, value) => {
-    //console.log( 'Form Updated', prop, value, values );
+    console.log( 'Form Updated', prop, value, values );
     window.Hubster && window.Hubster.dispatch('form-updated', { values: { prop, value } })
     const update = { [prop]: value };
     const newValues = { ...values, ...update };
-    //console.log( 'Form Updated', prop, value, {values, newValues} );
+    console.log( 'Form Updated', prop, value, {values, newValues} );
     setValues(newValues);
   }, [ values ]);
 
@@ -139,8 +139,15 @@ console.log('Render form: message', values.message, touched.message, errors.mess
         <form onSubmit={handleSubmit}>
 
 
-          <FyneSelect url={context.API_BASE+"/dropdown/estimate/products"} name="product" creatable={false}
-            onChange={choice=>{ console.log({choice}) }}
+          <FyneSelect 
+            k="product"
+            url={context.API_BASE+"/dropdown/estimate/products"} 
+            name="product" 
+            creatable={false}
+            initialValue="first"
+            value={values.product}
+            onOptionsLoaded={options=>handleChange('product',options[0])}
+            onChange={choice=>handleChange('product',choice)}
           />
 
           <React.Fragment>
