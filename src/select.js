@@ -56,7 +56,7 @@ export const FyneSelect = ({
             //console.log('fyneui: select: OptionsLoad > initialValue',{initialValue})
             if(!!initialValue){
                 if(initialValue==="first"){
-                    //console.log('fyneui: select: OptionsLoad > initialValue first!', {initialValue,value:loadedOptions[0]});
+                    console.log('fyneui: select: OptionsLoad > initialValue first!', {initialValue,value:loadedOptions[0]});
                     onChange(loadedOptions[0]);
                 }
                 else{
@@ -123,7 +123,7 @@ export const FyneSelect = ({
         }
     };
     
-    //console.log('fyneui: select: render select', props.value);
+    console.log('fyneui: select: render select', props.value);
       
     return (
         <CreatableSelect
