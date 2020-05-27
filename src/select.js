@@ -150,7 +150,7 @@ export const FyneSelect = ({
         }
     };
     
-    console.log('fyneui: select: render select', props.value);
+    console.log('fyneui: select: render select', props);
       
     return (
         <CreatableSelect
