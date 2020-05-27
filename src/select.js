@@ -8,6 +8,8 @@ const { useEffect } = React;
 import CreatableSelect from 'react-select/creatable';
 import { useFyneAPI } from './api';
 
+const FIRST_TIME = true;
+
 export const FyneSelect = ({
     onKeyDown = () => {},
     onChange = () => {},
@@ -41,57 +43,59 @@ export const FyneSelect = ({
         ).filter(filterOption);
     };
 
-    const renderOptions = options => setOpts(prepOptions(options));
+    const renderOptions = (options, isFirstTime) => {
+        setOpts(prepOptions(options));
 
-    useEffect(() => {
-        if(!!options){
-            renderOptions(options);
-        }
-        else{
-            OptionsLoad();
-        }
-    }, [ /* variables to watch */ url, e, edition, endpoint ]);
+        if(isFirstTime===FIRST_TIME){
+            console.log('fyneui: select: renderOptions > isFirstTime',{isFirstTime})
 
-    const FyneworksGet = query => {
-        //query = {...query, test:1, hello:'world'}
-        //console.log('FyneworksGet', query);
-        return get( query )
-    }
-    const FyneworksPost = body => post( body )
-    
-    const OptionsGet = () => FyneworksGet( getParams );
-    const OptionsPost = data => FyneworksPost( { ...addParams, ...data } );
-
-    const OptionsLoad = () =>
-        OptionsGet().then(res => {
-            //console.log('fyneui: select: OptionsLoad > OptionsGet',{res, filterOptions, filterOption})
-            const data = res && res.data || [];
-            const loadedOptions = prepOptions(res.data);
-            //console.log('fyneui: select: OptionsLoad > OptionsGet > loadedOptions',{data,loadedOptions})
-            setOpts(loadedOptions);
-            onOptionsLoaded(loadedOptions);
+            onOptionsLoaded(options);
             
-            //console.log('fyneui: select: OptionsLoad > initialValue',{initialValue})
+            console.log('fyneui: select: renderOptions > initialValue',{initialValue})
             if(!!initialValue){
                 if(initialValue==="first"){
-                    console.log('fyneui: select: OptionsLoad > initialValue first!', {initialValue,value:loadedOptions[0]});
-                    onChange(loadedOptions[0]);
+                    console.log('fyneui: select: renderOptions > initialValue first!', {initialValue,value:options[0]});
+
+                    onChange(options[0]);
+
                 }
                 else{
                     if(!!Array.isArray(initialValue) && initialValue.length===1){
-                        const initialData = initialValue && loadedOptions.filter( row => row.label==initialValue[0]);
+                        const initialData = initialValue && options.filter( row => row.label==initialValue[0]);
                         if(initialData && !!initialData.length){
                             //console.log('fyneui: select: OptionsLoad > initialValue matched item in array', {initialValue,value:initialData[0]});
+                            
                             onChange(initialData[0]);
+
                         };
                         //console.log('fyneui: select: initialData',e,{initialValue, initialData});
                     }
                 }
             }
 
-            return loadedOptions;
-        })
-    ;
+        }
+    }
+
+    useEffect(() => {
+        if(!!options){
+            renderOptions(options, FIRST_TIME);
+        }
+        else{
+            OptionsGet().then(res => {
+                //console.log('fyneui: select: OptionsLoad > OptionsGet',{res, filterOptions, filterOption})
+                const data = res && res.data || [];
+                const loadedOptions = prepOptions(res.data);
+                //console.log('fyneui: select: OptionsLoad > OptionsGet > loadedOptions',{data,loadedOptions})
+                renderOptions(loadedOptions, FIRST_TIME);
+                return loadedOptions;
+            })
+        }
+    }, [ /* variables to watch */ url, e, edition, endpoint ]);
+
+    const FyneworksGet = query => { return get( query ) }
+    const FyneworksPost = body => post( body )
+    const OptionsGet = () => FyneworksGet( getParams );
+    const OptionsPost = data => FyneworksPost( { ...addParams, ...data } );
     const OptionsAdd = (name) =>  
         OptionsPost({name})
         .then(res=>{
