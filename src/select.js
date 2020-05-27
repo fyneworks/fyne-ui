@@ -31,7 +31,7 @@ export const FyneSelect = ({
     ...props
 }) => {
 
-    let _value;
+    let _value = null;
     const endpoint = url || `/api/cms/dropdown/${e}`;
     const [ opts, setOpts ] = useState([]);
     const { error, loading, get, post } = useFyneAPI(endpoint);
@@ -150,7 +150,7 @@ export const FyneSelect = ({
         }
     };
     
-    console.log('fyneui: select: render select', props);
+    console.log('fyneui: select: render select', {props,error,isClearable,loading,opts,_value,value});
       
     return (
         <CreatableSelect
