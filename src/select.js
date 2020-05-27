@@ -20,6 +20,7 @@ export const FyneSelect = ({
     creatable = true,
     edition,
     initialValue = null,
+    options,
     k,
     e,
     url,
@@ -27,7 +28,7 @@ export const FyneSelect = ({
 }) => {
 
     const endpoint = url || `/api/cms/dropdown/${e}`;
-    const [ options, setOptions ] = useState([]);
+    const [ foptions, setOptions ] = useState([]);
     const { error, loading, get, post } = useFyneAPI(endpoint);
 
     useEffect(() => {
@@ -82,7 +83,7 @@ export const FyneSelect = ({
                 //const newOption = { [k]:res.data.i, name };
                 const newOption = { value:res.data.i, label:name };
                 //console.log('fyneui: select: select addHandler newOption',{newOption});
-                setOptions((options||[]).concat([newOption]));
+                setOptions((foptions||[]).concat([newOption]));
                 return newOption; // available to the next "then" statement
             }
             //onKeyDown(event);
@@ -132,7 +133,7 @@ export const FyneSelect = ({
             error={error}
             isClearable={isClearable}
             loading={loading}
-            options={options}
+            options={fyneOptions}
             isValidNewOption={(value)=>!!creatable && !!value}
         />
     );

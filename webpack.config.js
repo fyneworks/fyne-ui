@@ -196,7 +196,8 @@ module.exports = (env, argv) => {
     'hubster',
     'network',
     'select',
-    'notify'
+    'notify',
+    'ready'
   ].map(b=>
     Object.assign({}, baseConfig, {
       entry: {main:path.resolve(__dirname,'src', b+'.js')},

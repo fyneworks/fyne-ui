@@ -114,9 +114,9 @@ export const useFyneAPI = (url, dependencies = []) => {
     const del = body => run({ method:DEL, body });
     const patch = body => run({ method:PATCH, body });
 
-    useEffect(()=>{
-        get()
-    }, dependencies)
+    //useEffect(()=>{
+    //    get()
+    //}, dependencies)
     
     return {
         run, 
