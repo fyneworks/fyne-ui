@@ -24,12 +24,14 @@ export const FyneSelect = ({
     edition,
     initialValue = null,
     options = null,
+    value = null,
     k,
     e,
     url,
     ...props
 }) => {
 
+    let _value;
     const endpoint = url || `/api/cms/dropdown/${e}`;
     const [ opts, setOpts ] = useState([]);
     const { error, loading, get, post } = useFyneAPI(endpoint);
@@ -44,6 +46,7 @@ export const FyneSelect = ({
     };
 
     const renderOptions = (options, isFirstTime) => {
+        console.log('fyneui: select: renderOptions > options',{options, isFirstTime})
         setOpts(prepOptions(options));
 
         if(isFirstTime===FIRST_TIME){
@@ -56,7 +59,8 @@ export const FyneSelect = ({
                 if(initialValue==="first"){
                     console.log('fyneui: select: renderOptions > initialValue first!', {initialValue,value:options[0]});
 
-                    onChange(options[0]);
+                    _value = options[0];
+                    //onChange(options[0]);
 
                 }
                 else{
@@ -65,7 +69,8 @@ export const FyneSelect = ({
                         if(initialData && !!initialData.length){
                             //console.log('fyneui: select: OptionsLoad > initialValue matched item in array', {initialValue,value:initialData[0]});
                             
-                            onChange(initialData[0]);
+                            _value = initialData[0];
+                            //onChange(initialData[0]);
 
                         };
                         //console.log('fyneui: select: initialData',e,{initialValue, initialData});
@@ -155,6 +160,7 @@ export const FyneSelect = ({
             isClearable={isClearable}
             loading={loading}
             options={opts}
+            value={_value || value}
             isValidNewOption={(value)=>!!creatable && !!value}
         />
     );
