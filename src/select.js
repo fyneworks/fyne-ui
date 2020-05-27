@@ -11,6 +11,7 @@ import { useFyneAPI } from './api';
 export const FyneSelect = ({
     onKeyDown = () => {},
     onChange = () => {},
+    modifyOption = (option) => option,
     filterOption = (option) => option,
     filterOptions = (options) => options,
     onOptionsLoaded = () => {},
@@ -20,7 +21,7 @@ export const FyneSelect = ({
     creatable = true,
     edition,
     initialValue = null,
-    options,
+    options = null,
     k,
     e,
     url,
@@ -28,11 +29,27 @@ export const FyneSelect = ({
 }) => {
 
     const endpoint = url || `/api/cms/dropdown/${e}`;
-    const [ foptions, setOptions ] = useState([]);
+    const [ opts, setOpts ] = useState([]);
     const { error, loading, get, post } = useFyneAPI(endpoint);
 
+    const prepOptions = data => {
+        return filterOptions(
+            data.map( 
+                row => ({...row, value:row[k], label: row.name})
+            )
+            .map(modifyOption)
+        ).filter(filterOption);
+    };
+
+    const renderOptions = options => setOpts(prepOptions(options));
+
     useEffect(() => {
-        OptionsLoad();
+        if(!!options){
+            renderOptions(options);
+        }
+        else{
+            OptionsLoad();
+        }
     }, [ /* variables to watch */ url, e, edition, endpoint ]);
 
     const FyneworksGet = query => {
@@ -49,9 +66,9 @@ export const FyneSelect = ({
         OptionsGet().then(res => {
             //console.log('fyneui: select: OptionsLoad > OptionsGet',{res, filterOptions, filterOption})
             const data = res && res.data || [];
-            const loadedOptions = filterOptions(data.map( row => ({...row, value:row[k], label: row.name}) )).filter(filterOption);
+            const loadedOptions = prepOptions(res.data);
             //console.log('fyneui: select: OptionsLoad > OptionsGet > loadedOptions',{data,loadedOptions})
-            setOptions(loadedOptions);
+            setOpts(loadedOptions);
             onOptionsLoaded(loadedOptions);
             
             //console.log('fyneui: select: OptionsLoad > initialValue',{initialValue})
@@ -83,7 +100,7 @@ export const FyneSelect = ({
                 //const newOption = { [k]:res.data.i, name };
                 const newOption = { value:res.data.i, label:name };
                 //console.log('fyneui: select: select addHandler newOption',{newOption});
-                setOptions((foptions||[]).concat([newOption]));
+                renderOptions((opts||[]).concat([newOption]));
                 return newOption; // available to the next "then" statement
             }
             //onKeyDown(event);
@@ -133,7 +150,7 @@ export const FyneSelect = ({
             error={error}
             isClearable={isClearable}
             loading={loading}
-            options={fyneOptions}
+            options={opts}
             isValidNewOption={(value)=>!!creatable && !!value}
         />
     );
