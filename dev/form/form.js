@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import LoadingOverlay from 'react-loading-overlay';
@@ -15,6 +15,7 @@ import { validationSchema } from './validation';
 import { FormItem, itemDefaultProps } from './form.item'
 
 import { random } from '@fyne/ui/utils';
+import { useFyneAPI } from '@fyne/ui/api';
 import { FyneFormAPI } from '@fyne/ui/form';
 import { FyneSelect } from '@fyne/ui/select';
 import { ParseContext } from '@fyne/ui/context';
@@ -181,11 +182,32 @@ export const Form = ({
     handleChange('items', newItems)
   }, [ values ]);
 
-
-
   useEffect(()=>{
     FyneHook && FyneHook.sync({values,validationSchema,isValid,errors,touched,dirty,setTouched,setErrors})
   }, [ values, errors, isValid, touched ])
+
+
+
+// OPTION, PRELOAD ALL THE THINGS
+
+const [ catalogue, setCatalogue ] = useState({ready:false});
+
+const productsApi = useFyneAPI(context.API_BASE+"/dropdown/estimate/products");
+const pricesApi = useFyneAPI(context.API_BASE+"/dropdown/estimate/prices");
+const modelsApi = useFyneAPI(context.API_BASE+"/dropdown/estimate/models");
+const extrasApi = useFyneAPI(context.API_BASE+"/dropdown/estimate/extras");
+
+useEffect(()=>{
+  Promise.all([
+    productsApi.get(),
+    pricesApi.get({"extra-fields":"page,varprice,fixprice"}),
+    modelsApi.get({"extra-fields":"page,varprice,fixprice"}),
+    extrasApi.get({"extra-fields":"page,varprice,fixprice"}),
+  ]).then(([products,prices,models,extras])=>{
+    //console.log('Promise.all', {products,prices,models,extras});
+    setCatalogue({ready:true, products,prices,models,extras})
+  })
+}, [])
 
 
 
@@ -209,7 +231,8 @@ console.log('Render form: message', values.message, touched.message, errors.mess
 
           <FyneSelect 
             k="product"
-            url={context.API_BASE+"/dropdown/estimate/products"} 
+            //url={context.API_BASE+"/dropdown/estimate/products"} 
+            options={catalogue.ready && catalogue.products.data}
             name="product" 
             creatable={false}
             //initialValue="first"
