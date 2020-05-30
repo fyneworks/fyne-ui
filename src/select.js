@@ -150,7 +150,10 @@ export const FyneSelect = ({
         }
     };
     
-    console.log('fyneui: select: render select', {props,error,isClearable,loading,opts,_value,value});
+    console.log('fyneui: select: render select', {props,error,isClearable,loading,opts,_value,value
+        ,pvalue: _value || value
+        ,parsedValue: parseOption(_value || value)
+    });
       
     return (
         <CreatableSelect
