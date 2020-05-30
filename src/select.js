@@ -84,7 +84,11 @@ export const FyneSelect = ({
             
             console.log('fyneui: select: renderOptions > initialValue',{initialValue})
             if(!!initialValue){
-                if(initialValue==="first"){
+                if(validOption(value)){
+                    console.log('fyneui: select: renderOptions > ignore initialValue because value is valid!', {value,initialValue,value:options[0]});
+
+                }
+                else if(initialValue==="first"){
                     console.log('fyneui: select: renderOptions > initialValue first!', {initialValue,value:options[0]});
 
                     onChange(options[0]);
