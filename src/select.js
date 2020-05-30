@@ -87,12 +87,12 @@ export const FyneSelect = ({
                 if(initialValue==="first"){
                     console.log('fyneui: select: renderOptions > initialValue first!', {initialValue,value:options[0]});
 
-                    onChange(prepdOptions[0]);
+                    onChange(options[0]);
 
                 }
                 else{
                     if(!!Array.isArray(initialValue) && initialValue.length===1){
-                        const initialData = initialValue && prepdOptions.filter( row => row.label==initialValue[0]);
+                        const initialData = initialValue && options.filter( row => row.label==initialValue[0]);
                         if(initialData && !!initialData.length){
                             console.log('fyneui: select: OptionsLoad > initialValue matched item in array', {initialValue,value:initialData[0]});
                             
