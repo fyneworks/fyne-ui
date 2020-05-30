@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useCallback } from 'react';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import LoadingOverlay from 'react-loading-overlay';
 import MuiPhoneNumber from 'material-ui-phone-number'
@@ -11,7 +12,9 @@ import MomentUtils from '@date-io/moment';
 
 import { useFormik } from 'formik';
 import { validationSchema } from './validation';
+import { FormItem, itemDefaultProps } from './form.item'
 
+import { random } from '@fyne/ui/utils';
 import { FyneFormAPI } from '@fyne/ui/form';
 import { FyneSelect } from '@fyne/ui/select';
 import { ParseContext } from '@fyne/ui/context';
@@ -47,6 +50,7 @@ export const Form = ({
     phone: '', 
     email: '', 
     message: '',
+    items: [],
     date: new Date()
   }
 }) => {
@@ -115,6 +119,70 @@ export const Form = ({
   }, [ values ]);
 
 
+
+  const addItem = ((newItem)=> { //useCallback
+    //console.log('addItem', {newItem});
+    const newItemPrepared = {
+      ...itemDefaultProps,
+      ...newItem,
+      ...({
+        //price: catalogue.prices.data.filter(x=>x.page==newItem.product)[0],
+        //model: catalogue.models.data.filter(x=>x.page==newItem.product)[0],
+        extras: []
+      }),
+      key:random()
+    };
+    console.log('addItem newItemPrepared', {newItemPrepared});
+    const newItems = values.items.concat(newItemPrepared);
+    console.log('addItem DONE, newItems', {newItems});
+    handleChange('items', newItems)
+  }) //, [ ]);
+
+
+  const changeItem = useCallback((item)=> {
+    console.log('changeItem', {item,currentItems:values.items});
+    let newItems = [];
+
+    values.items.forEach(old=>{
+      console.log('changeItem OLD', old);
+      if(old.key==item.key){
+        console.log('changeItem REPLACE', {item});
+        newItems[newItems.length] = item;
+      }
+      else{
+        console.log('changeItem KEEP', {old});
+        newItems[newItems.length] = old;
+      }
+    });
+
+    //console.log('changeItem DONE, newItems', {newItems});
+    handleChange('items', newItems)
+  }, [ values ]);
+
+
+
+  const removeItem = useCallback((item)=> {
+    console.log('removeItem', {item,currentItems:values.items});
+    let newItems = [];
+
+    values.items.forEach(old=>{
+      console.log('removeItem OLD', old);
+      if(old.key==item.key){
+        console.log('removeItem REMOVE', {item});
+        //newItems[newItems.length] = item;
+      }
+      else{
+        console.log('removeItem KEEP', {old});
+        newItems[newItems.length] = old;
+      }
+    });
+
+    console.log('removeItem DONE, newItems', {newItems});
+    handleChange('items', newItems)
+  }, [ values ]);
+
+
+
   useEffect(()=>{
     FyneHook && FyneHook.sync({values,validationSchema,isValid,errors,touched,dirty,setTouched,setErrors})
   }, [ values, errors, isValid, touched ])
@@ -144,15 +212,34 @@ console.log('Render form: message', values.message, touched.message, errors.mess
             url={context.API_BASE+"/dropdown/estimate/products"} 
             name="product" 
             creatable={false}
-            initialValue="first"
-            value={values.product}
-            onOptionsLoaded={options=>handleChange('product',options[0])}
-            onChange={choice=>handleChange('product',choice)}
+            //initialValue="first"
+            //value={values.product}
+            //onOptionsLoaded={options=>handleChange('product',options[0])}
+            //onChange={product=>handleChange("product",product)}
+            onChange={product=>addItem(product)}
           />
 
-          <React.Fragment>
-            TODO: list of products selected
-          </React.Fragment>
+          
+
+          {!!values.items.length ? (
+            <Grid container spacing={2} alignItems="stretch" justify="flex-start" direction="row" alignContent="flex-end">
+              <Grid item xs={12}>
+
+                {
+                  values.items.map(item=>(
+                    <FormItem key={item.key} item={item} 
+                      onChange={item=> changeItem(item)}
+                      onRemove={item=> removeItem(item)}
+                      //prices={catalogue.prices.data.filter(x=>x.page==item.product)}
+                      //models={catalogue.models.data.filter(x=>x.page==item.product)}
+                      //extras={catalogue.extras.data.filter(x=>x.page==item.product)}
+                    />
+                  ))
+                }
+
+              </Grid>
+            </Grid>
+          ) : ""}
 
           <TextField value={values.name || ''} onChange={event=>handleChange('name',event.target.value)}
             type="text" id="name" label="Name"

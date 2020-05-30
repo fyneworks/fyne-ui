@@ -1,0 +1,21 @@
+
+export const PROP_PRODUCT = "product";
+export const PROP_QUANTITY = "quantity";
+export const PROP_NAME = "name";
+export const PROP_WEIGHT = "weight";
+export const PROP_LENGTH = "length";
+export const PROP_WIDTH = "width";
+export const PROP_AREA = "area";
+export const PROP_MODEL = "model";
+export const PROP_PRICE = "price";
+export const PROP_EXTRA = "extra";
+export const PROP_EXTRAS = "extras";
+export const PROP_MAGNITUDE = "magnitude";
+export const PROP_DIMENSION = "dimension";
+export const PROP_DIMENSION_M = "m";
+export const PROP_DIMENSION_FT = "ft";
+export const PROP_DIMENSION_KG = "kg";
+export const PROP_DIMENSION_M2 = "m2";
+export const PROP_DIMENSION_M3 = "m3";
+export const PROP_DIMENSION_FT2 = "ft2";
+export const PROP_DIMENSION_FT3 = "ft3";

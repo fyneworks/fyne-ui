@@ -197,6 +197,7 @@ module.exports = (env, argv) => {
     'network',
     'select',
     'notify',
+    'utils',
     'ready'
   ].map(b=>
     Object.assign({}, baseConfig, {
