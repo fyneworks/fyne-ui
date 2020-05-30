@@ -31,7 +31,7 @@ export const FyneSelect = ({
     ...props
 }) => {
 
-    const endpoint = url || `/api/cms/dropdown/${e}`;
+    const endpoint = url || (!!e ? `/api/cms/dropdown/${e}` : null);
     const { error, loading, get, post } = useFyneAPI(endpoint);
     const [ opts, setOpts ] = useState([]);
 
@@ -72,32 +72,34 @@ export const FyneSelect = ({
     };
 
     const renderOptions = (options, isFirstTime) => {
-        console.log('fyneui: select: renderOptions > options',{options, isFirstTime})
-        setOpts(prepOptions(options));
+        //console.log('fyneui: select: renderOptions > options',{options, isFirstTime})
+        const prepdOptions = prepOptions(options);
+        //console.log('fyneui: select: renderOptions > prepdOptions',{prepdOptions})
+        setOpts(prepdOptions);
 
         if(isFirstTime===FIRST_TIME){
-            console.log('fyneui: select: renderOptions > isFirstTime',{isFirstTime})
+            //console.log('fyneui: select: renderOptions > isFirstTime',{isFirstTime})
 
-            onOptionsLoaded(options);
+            onOptionsLoaded(prepdOptions);
             
-            console.log('fyneui: select: renderOptions > initialValue',{initialValue})
+            //console.log('fyneui: select: renderOptions > initialValue',{initialValue})
             if(!!initialValue){
                 if(initialValue==="first"){
-                    console.log('fyneui: select: renderOptions > initialValue first!', {initialValue,value:options[0]});
+                    //console.log('fyneui: select: renderOptions > initialValue first!', {initialValue,value:options[0]});
 
-                    onChange(options[0]);
+                    onChange(prepdOptions[0]);
 
                 }
                 else{
                     if(!!Array.isArray(initialValue) && initialValue.length===1){
-                        const initialData = initialValue && options.filter( row => row.label==initialValue[0]);
+                        const initialData = initialValue && prepdOptions.filter( row => row.label==initialValue[0]);
                         if(initialData && !!initialData.length){
-                            console.log('fyneui: select: OptionsLoad > initialValue matched item in array', {initialValue,value:initialData[0]});
+                            //console.log('fyneui: select: OptionsLoad > initialValue matched item in array', {initialValue,value:initialData[0]});
                             
                             onChange(initialData[0]);
 
                         };
-                        console.log('fyneui: select: initialData',e,{initialValue, initialData});
+                        //console.log('fyneui: select: initialData',e,{initialValue, initialData,options,prepdOptions});
                     }
                 }
             }
@@ -106,23 +108,27 @@ export const FyneSelect = ({
     }
 
     useEffect(() => {
-        console.log('fyneui: init: OptionsLoad ? options',{options})
+        //console.log('fyneui: init: OptionsLoad ? options',{options})
+        console.log(JSON.stringify(options))
         if(!!options){
-            console.log('fyneui: init: OptionsLoad ? renderOptions(options, FIRST_TIME);',{options})
+            //console.log('fyneui: init: OptionsLoad ? renderOptions(options, FIRST_TIME);',{options})
             renderOptions(options, FIRST_TIME);
         }
-        else{
-            console.log('fyneui: init: OptionsLoad ? OptionsGet();',{url,k,endpoint})
+        else if(!!endpoint){
+            //console.log('fyneui: init: OptionsLoad ? OptionsGet();',{url,k,endpoint})
             OptionsGet().then(res => {
-                console.log('fyneui: select: OptionsLoad > OptionsGet',{res, filterOptions, filterOption})
+                //console.log('fyneui: select: OptionsLoad > OptionsGet',{res, filterOptions, filterOption})
                 const data = res && res.data || [];
                 const loadedOptions = prepOptions(res.data);
-                console.log('fyneui: select: OptionsLoad > OptionsGet > loadedOptions',{data,loadedOptions})
+                //console.log('fyneui: select: OptionsLoad > OptionsGet > loadedOptions',{data,loadedOptions})
                 renderOptions(loadedOptions, FIRST_TIME);
                 return loadedOptions;
             })
         }
-    }, [ /* variables to watch */ url, e, edition, endpoint, options ]);
+        else{
+            //console.log('fyneui: init: OptionsLoad ? OptionsGet();',{url,k,endpoint})
+        }
+    }, [ /* variables to watch */ url, e, edition ]);
 
     const FyneworksGet = query => { return get( query ) }
     const FyneworksPost = body => post( body )
@@ -151,7 +157,7 @@ export const FyneSelect = ({
                 const name = event.target.value;
                 OptionsAdd(name)
                 .then(newData=>{
-                    console.log('fyneui: select: keyDown newData',{newData})
+                    //console.log('fyneui: select: keyDown newData',{newData})
                     onKeyDown(event);
                 })
 
@@ -166,7 +172,7 @@ export const FyneSelect = ({
                 const name = data.label;
                 OptionsAdd(name)
                 .then(newData=>{
-                    console.log('fyneui: select: onChange newData',{newData})
+                    //console.log('fyneui: select: onChange newData',{newData})
                     onChange(newData);
                 })
 
@@ -177,7 +183,7 @@ export const FyneSelect = ({
         }
     };
     
-    console.log('fyneui: select: render select', {n:props.name,value,pval:parseOption(value),props,error,isClearable,loading,opts});
+    //console.log('fyneui: select: render select', {n:props.name,value,pval:parseOption(value),props,error,isClearable,loading,opts});
 
     return (
         <CreatableSelect

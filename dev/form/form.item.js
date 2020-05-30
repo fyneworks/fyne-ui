@@ -206,7 +206,7 @@ export const FormItem = ({
                     />
                 </Grid>
                 <Grid item xs={6}>
-                    <FyneSelect url={context.API_BASE+"/dropdown/estimate/prices"}
+                    <FyneSelect //url={context.API_BASE+"/dropdown/estimate/prices"}
                         options={prices} isClearable={false}
                         defaultValue={prices && Array.isArray(prices) && prices[0]}
                         k={PROP_PRICE}
@@ -229,7 +229,7 @@ export const FormItem = ({
                     </Tooltip>
                 </Grid>
                 <Grid item xs={9}>
-                    <FyneSelect url={context.API_BASE+"/dropdown/estimate/models"}
+                    <FyneSelect //url={context.API_BASE+"/dropdown/estimate/models"}
                         options={models} isClearable={false}
                         defaultValue={models && Array.isArray(models) && models[0]}
                         k={PROP_MODEL}
@@ -252,7 +252,7 @@ export const FormItem = ({
                     </Tooltip>
                 </Grid>
                 <Grid item xs={9}>
-                    <FyneSelect url={context.API_BASE+"/dropdown/estimate/extras"}
+                    <FyneSelect //url={context.API_BASE+"/dropdown/estimate/extras"}
                         options={extras} isClearable={true}
                         k={PROP_EXTRA}
                         edition={item[PROP_PRODUCT]}

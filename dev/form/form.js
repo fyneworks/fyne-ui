@@ -190,7 +190,7 @@ export const Form = ({
 
 // OPTION, PRELOAD ALL THE THINGS
 
-const [ catalogue, setCatalogue ] = useState({ready:false});
+const [ catalogue, setCatalogue ] = useState({ready:false,products:[],prices:[],extras:[],models:[]});
 
 const productsApi = useFyneAPI(context.API_BASE+"/dropdown/estimate/products");
 const pricesApi = useFyneAPI(context.API_BASE+"/dropdown/estimate/prices");
@@ -232,9 +232,10 @@ console.log('Render form: message', values.message, touched.message, errors.mess
           <FyneSelect 
             k="product"
             //url={context.API_BASE+"/dropdown/estimate/products"} 
-            options={catalogue.ready && catalogue.products.data}
+            options={catalogue.products.data}
             name="product" 
             creatable={false}
+            edition={catalogue.ready}
             //initialValue="first"
             //value={values.product}
             //onOptionsLoaded={options=>handleChange('product',options[0])}
@@ -253,9 +254,9 @@ console.log('Render form: message', values.message, touched.message, errors.mess
                     <FormItem key={item.key} item={item} 
                       onChange={item=> changeItem(item)}
                       onRemove={item=> removeItem(item)}
-                      //prices={catalogue.prices.data.filter(x=>x.page==item.product)}
-                      //models={catalogue.models.data.filter(x=>x.page==item.product)}
-                      //extras={catalogue.extras.data.filter(x=>x.page==item.product)}
+                      prices={catalogue.prices.data.filter(x=>x.page==item.product)}
+                      models={catalogue.models.data.filter(x=>x.page==item.product)}
+                      extras={catalogue.extras.data.filter(x=>x.page==item.product)}
                     />
                   ))
                 }
