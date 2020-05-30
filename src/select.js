@@ -36,7 +36,7 @@ export const FyneSelect = ({
     const [ opts, setOpts ] = useState([]);
     const { error, loading, get, post } = useFyneAPI(endpoint);
 
-    const parseOption = row => !row ? {} : ({...row, value:row[k], label: row.name});
+    const parseOption = row => !!row && ({...row, value:row[k], label: row.name});
 
     const prepOptions = data => {
         return filterOptions(
