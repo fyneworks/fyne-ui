@@ -36,7 +36,14 @@ export const FyneSelect = ({
     const [ opts, setOpts ] = useState([]);
     const { error, loading, get, post } = useFyneAPI(endpoint);
 
-    const parseOption = row => !!row && ({...row, value:row[k], label: row.name});
+    const parseOption = option => {
+        if(Array.isArray(option)){
+            return option.map(parseOption);
+        }
+        else{
+            return ({...option, value:option[k], label: option.name});
+        }
+    }
 
     const prepOptions = data => {
         return filterOptions(
