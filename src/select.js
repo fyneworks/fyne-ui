@@ -40,8 +40,11 @@ export const FyneSelect = ({
         if(Array.isArray(option)){
             return option.map(parseOption);
         }
-        else{
+        else if(!!option){
             return ({...option, value:option[k], label: option.name});
+        }
+        else{
+            return null
         }
     }
 
@@ -157,9 +160,10 @@ export const FyneSelect = ({
         }
     };
     
-    console.log('fyneui: select: render select', {props,error,isClearable,loading,opts,_value,value
+    console.log('fyneui: select: render select', {n:props.name
         ,pvalue: _value || value
         ,parsedValue: parseOption(_value || value)
+        ,props,error,isClearable,loading,opts,_value,value
     });
       
     return (
