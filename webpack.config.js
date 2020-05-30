@@ -316,5 +316,5 @@ module.exports = (env, argv) => {
     return withDevServer(demoBundles);
   }
 
-  return prodBundles.concat(demoBundles);
+  return prodBundles;//.concat(demoBundles);
 }
