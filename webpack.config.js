@@ -312,7 +312,7 @@ module.exports = (env, argv) => {
 
 
 
-  if(process.env.NODE_ENV=='development'){
+  if(isDevelopmentMode){//process.env.NODE_ENV=='development'){
     return withDevServer(demoBundles);
   }
 
