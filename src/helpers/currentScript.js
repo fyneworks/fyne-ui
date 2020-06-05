@@ -22,7 +22,7 @@ export const script = (function() {
     }
     const { baseURI, src } = cs;
     const cur_path = baseURI;
-    const src_path = src && src.match(/^(https?\:\/\/[^\/]+\/)/gi)[0];
+    const src_path = !!src && (src.match(/^(https?\:\/\/[^\/]+\/)/gi) || ['']) [0];
     //console.log('current script:', {cs,baseURI,src,cur_path,src_path});
     return { src_path, cur_path, src, tag:cs };
 })();
