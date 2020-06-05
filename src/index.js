@@ -13,9 +13,6 @@ export { default as select } from './select';
 export * from './helpers';
 export { default as helpers } from './helpers';
 
-export * from './helpers';
-export { default as helpers } from './helpers';
-
 export * from './hubster';
 export { default as hubster } from './hubster';
 

@@ -6,10 +6,10 @@ import { script } from  './helpers/currentScript';
 //console.log('FYNEWORKS CONTEXT process.env.PATH', process.env.PATH)
 //console.log('FYNEWORKS CONTEXT script.src_path', script.src_path)
 //console.log('FYNEWORKS CONTEXT process.env', process.env)
-const APP_BASE = script.src_path || process.env.PATH || './';
+export const APP_BASE = script.src_path || process.env.PATH || './';
 
 // expose process.env of library
-const lib_env = process.env;
+export const lib_env = process.env;
 
 // parse a process.env object
 export const EnvironmentConstants = (app_env = {}) => {
@@ -60,9 +60,11 @@ export const scriptProp = n => {
 ////console.log('Fyneworks config EnvironmentConstants()', EnvironmentConstants())
 
 export const ParseContext = (app_env = lib_env, defaults, overrides)=> {
-    //console.log('ParseContext invoked');
+    console.log('ParseContext invoked', {app_env,defaults,overrides});
 
     const cur_env = EnvironmentConstants(app_env);
+
+    console.log('ParseContext invoked', {cur_env});
 
     let context = Object.assign(
         {}, 
@@ -79,6 +81,7 @@ export const ParseContext = (app_env = lib_env, defaults, overrides)=> {
             timezone: scriptProp('timezone') || constant('timezone',cur_env) || setting('timezone'), //  window['FWX_TIMEZONE'] || dataset.timezone,
             license: scriptProp('license') || constant('license',cur_env) || setting('license'),
             domain: scriptProp('domain') || constant('domain',cur_env) || setting('domain'), //  window['FWX_DOMAIN'] || dataset.domain,
+            apikey: scriptProp('apikey') || constant('apikey',cur_env) || setting('apikey'), //  window['FWX_APIKEY'] || dataset.apikey,
             base: scriptProp('base') || constant('base',cur_env) || setting('base'),
             path: scriptProp('API_PATH') || constant('API_PATH',cur_env) || setting('API_PATH') || '/api',
             cur: scriptProp('cur') || constant('cur',cur_env) || setting('cur'), //  window['FWX_CUR'] || dataset.cur,
@@ -108,6 +111,8 @@ export const ParseContext = (app_env = lib_env, defaults, overrides)=> {
     }
 
     context.API_BASE = context.base +''+ context.path; // + '/';
+
+    console.log('ParseContext result', {context,cur_env,app_env,defaults,overrides});
 
     return context;
 };

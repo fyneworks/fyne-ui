@@ -8,11 +8,11 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
 import CurrencyFormat from 'react-currency-format';
+import { Typography } from '@material-ui/core';
 
 //import { FyneSelect } from '/home/diego/projects/fwxlab/fyne-ui/src/select.js';
 import { FyneSelect } from '@fyne/ui/select';
 import { ParseContext } from '@fyne/ui/context';
-import { Typography } from '@material-ui/core';
 const context = ParseContext(process.env);
 
 import { lineTotal } from './lib';
@@ -205,7 +205,7 @@ export const FormItem = ({
                         onChange={event=>handleChange(PROP_MAGNITUDE,event.target.value)}
                     />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={6} alignContent="flex-end">
                     <FyneSelect //url={context.API_BASE+"/dropdown/estimate/prices"}
                         options={prices} isClearable={false}
                         defaultValue={prices && Array.isArray(prices) && prices[0]}
