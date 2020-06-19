@@ -34,7 +34,8 @@
   },
   "homepage": "https://github.com/fyneworks/fyne-ui#readme",
   "dependencies": {
-    "react-currency-format": "^1.0.0"
+    "react-currency-format": "^1.0.0",
+    "unfetch": "^4.1.0"
   },
   "peerDependencies": {
     "react": ">=15.0.1",
