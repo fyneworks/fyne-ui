@@ -1,6 +1,6 @@
 {
   "name": "@fyne/ui",
-  "version": "1.1.49",
+  "version": "1.1.50",
   "description": "",
   "type": "module",
   "main": "./dist/index.js",
