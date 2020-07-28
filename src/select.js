@@ -14,8 +14,8 @@ export const FyneSelect = ({
     onKeyDown = () => {},
     onChange = () => {},
     modifyOption = (option) => option,
-    filterOption = (option) => option,
-    filterOptions = (options) => options,
+    filterOption = (option) => !!option,  //returns truthy for each object
+    filterOptions = (options) => options, // taks array and filters it
     onOptionsLoaded = () => {},
     isClearable = true,
     getParams = {},
@@ -66,9 +66,10 @@ export const FyneSelect = ({
     }
 
     const prepOptions = data => {
-        console.log('prepOptions', {data})
-        console.log('prepOptions parseOption', {data:data.map(parseOption)})
-        console.log('prepOptions parseOption filterOptions', {data:filterOptions(data.map(parseOption))})
+        console.log('*** prepOptions', {data})
+        console.log('*** prepOptions parseOption', {data:data.map(parseOption)})
+        console.log('*** prepOptions parseOption filterOption', {data:data.map(parseOption).filter(filterOption)})
+        console.log('*** prepOptions filterOptions(parseOption filterOption)', {data:filterOptions(data.map(parseOption).filter(filterOption))})
         return filterOptions(
             data.map(parseOption)//.map(modifyOption) 
         ).filter(filterOption);
