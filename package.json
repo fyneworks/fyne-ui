@@ -21,7 +21,7 @@
     "deploy": "surge ./demo --domain https://ui.fyneworks.io",
     "tidy": "eclint fix 'src/**/*'",
     "go": "npm run build && npm run deploy",
-    "yolo": "clear && npm run build && git add . && git commit -m\"🤷‍♂️\" && np patch --no-release-draft"
+    "yolo": "clear && npm run build && git add . && git diff --quiet && git diff --staged --quiet || git commit -m\"🤷‍♂️\" && np patch --no-release-draft"
   },
   "repository": {
     "type": "git",
