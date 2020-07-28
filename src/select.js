@@ -66,6 +66,9 @@ export const FyneSelect = ({
     }
 
     const prepOptions = data => {
+        console.log('prepOptions', {data})
+        console.log('prepOptions parseOption', {data:data.map(parseOption)})
+        console.log('prepOptions parseOption filterOptions', {data:filterOptions(data.map(parseOption))})
         return filterOptions(
             data.map(parseOption)//.map(modifyOption) 
         ).filter(filterOption);
@@ -123,7 +126,7 @@ export const FyneSelect = ({
             OptionsGet().then(res => {
                 console.log('fyneui: select: OptionsLoad > OptionsGet',{res, filterOptions, filterOption})
                 const data = res && res.data || [];
-                const loadedOptions = prepOptions(res.data);
+                const loadedOptions = prepOptions(data); //res.data);
                 console.log('fyneui: select: OptionsLoad > OptionsGet > loadedOptions',{data,loadedOptions})
                 renderOptions(loadedOptions, FIRST_TIME);
                 return loadedOptions;
