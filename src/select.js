@@ -14,7 +14,7 @@ export const FyneSelect = ({
     onKeyDown = () => {},
     onChange = () => {},
     modifyOption = (option) => option,
-    filterOption = (option) => !!option,  //returns truthy for each object
+    filterOption = (option) => !!option, //{ console.log("****** filterOption", {option}); return true; },  //returns truthy for each object
     filterOptions = (options) => options, // taks array and filters it
     onOptionsLoaded = () => {},
     isClearable = true,
@@ -31,6 +31,10 @@ export const FyneSelect = ({
     ...props
 }) => {
 
+    if(!k){
+        console.error("Can't render select, missing k parameter",{isClearable,getParams,addParams,creatable,edition,initialValue,options,value,k,e,url});
+        return <React.Fragment/>
+    }
     const endpoint = url || (!!e ? `/api/cms/dropdown/${e}` : null);
     const { error, loading, get, post } = useFyneAPI(endpoint);
     const [ opts, setOpts ] = useState([]);
