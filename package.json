@@ -30,7 +30,7 @@
     "type": "git",
     "url": "git+https://github.com/fyneworks/fyne-ui.git"
   },
-  "author": "",
+  "author": "Fyneworks",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/fyneworks/fyne-ui/issues"

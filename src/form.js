@@ -26,13 +26,17 @@ export const FyneFormAPI = (url) => {
 
             return endpoint.post({url, body})
 
-      }
-
+	  }
+	  
       return {
             url,
             submit,
 			endpoint,
 			post: submit,
+			get: endpoint.get,
+			put: endpoint.put,
+			del: endpoint.del,
+			patch: endpoint.patch,
       }
 
 }
@@ -43,7 +47,7 @@ export const useFyneForm = (instanceId, {
 	cancel = (...args)=> console.warn('Must supply cancel parameter to useFyneForm', args),
 	submit = (...args)=> console.warn('Must supply submit parameter to useFyneForm', args),
 	initialState = {
-
+		name: ''
 	}
 }) => {
 	if(!Form) console.error('Must define Form component to use FyneForm');
@@ -62,7 +66,7 @@ export const useFyneForm = (instanceId, {
 				initialState={initialState} 
 				//initialData={initialData} 
 				FyneHook={{
-					submit,
+					submit,submit
 					sync,
 				}}
 				{...moreprops}
