@@ -36,7 +36,7 @@ export const FyneFormAPI = (url) => {
 			get: endpoint.get,
 			put: endpoint.put,
 			del: endpoint.del,
-			patch: endpoint.patch,
+			patch: endpoint.patch
       }
 
 }
@@ -66,7 +66,7 @@ export const useFyneForm = (instanceId, {
 				initialState={initialState} 
 				//initialData={initialData} 
 				FyneHook={{
-					submit,submit
+					submit,
 					sync,
 				}}
 				{...moreprops}
