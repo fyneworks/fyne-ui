@@ -61,13 +61,13 @@ export const options = {
     }
 };
 
-export const url = context.API_BASE;
+//export const url = context.API_BASE;
 
-export const FyneProvider = ({...props}) => {
+export const FyneProvider = ({ url, options, children, ...props}) => {
     //console.log('FyneProvider INIT', props);
     return (
-        <Provider url={url} options={options}>
-            {props.children}
+        <Provider url={url} options={options} {...props}>
+            {children}
         </Provider>
     )
 };

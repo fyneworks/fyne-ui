@@ -19,8 +19,8 @@ import { useFyneAPI } from '@fyne/ui/api';
 import { FyneFormAPI } from '@fyne/ui/form';
 import { FyneSelect } from '@fyne/ui/select';
 import { ParseContext } from '@fyne/ui/context';
-const context = ParseContext(process.env);
 
+const context = ParseContext(process.env);
 export const url = window.API_ACTION || process.env.FWX_API_ACTION || '/cms/forms';
 export const form = FyneFormAPI({context,url});
 
