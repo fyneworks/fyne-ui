@@ -120,6 +120,6 @@ export const ParseContext = (app_env = lib_env, defaults, overrides)=> {
 //export const context = ParseContext();
 //export default context;
 
-console.log('fyne/ui: FYNEWORKS CONTEXT RESULT (processed process.env and others)', context);
+// // dont- console.log('fyne/ui: FYNEWORKS CONTEXT RESULT (processed process.env and others)', context);
 
 //export const FyneContext = React.createContext(context);
