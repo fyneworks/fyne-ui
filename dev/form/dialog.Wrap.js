@@ -40,21 +40,21 @@ export const DialogWrap = ({startOpen = true, container, ...props}) => {
   }
 
   const handleCancel = ({values={},isValid=false,errors={}})=> {
-    console.log('fyne/ui: DialogWrap handleCancel', {values,isValid,errors});
+    //console.log('fyne/ui: DialogWrap handleCancel', {values,isValid,errors});
     closeDialog();
   }
   const handleSubmit = (state={})=> {
     const {values={},isValid=false,errors={},touched={}} = state;
     const {setErrors=()=>{},setTouched=()=>{},validationSchema} = state;
-    console.log('fyne/ui: DialogWrap handleSubmit', {state,values,touched,isValid,errors,setErrors,validationSchema});
+    //console.log('fyne/ui: DialogWrap handleSubmit', {state,values,touched,isValid,errors,setErrors,validationSchema});
 
     const quit = () => {
       const firstError = Object.keys(errors)[0];
       const firstAlert = firstError && errors[firstError];
       !!firstAlert ? handleError(firstError, firstAlert) : handleError('general', 'Please fill in the form');
-      console.log('fyne/ui: DialogWrap handleSubmit setTouched(all);', {setTouched,touched} );
+      //console.log('fyne/ui: DialogWrap handleSubmit setTouched(all);', {setTouched,touched} );
       setTouched({name:true,email:true,phone:true,message:true}, true); // https://jaredpalmer.com/formik/docs/api/formik#settouched-fields--field-string-boolean--shouldvalidate-boolean--void
-      console.log('fyne/ui: DialogWrap handleSubmit setErrors(errors);', {setErrors,errors} );
+      //console.log('fyne/ui: DialogWrap handleSubmit setErrors(errors);', {setErrors,errors} );
       setErrors(errors);
       return false;
     }
@@ -90,29 +90,29 @@ export const DialogWrap = ({startOpen = true, container, ...props}) => {
 
   const { FyneForm, state, submit, setState } = useFyneForm('dialog', { Form,
     submit: (props)=> {
-      console.log('fyne/ui: Dialog useFyneForm submit', {state,props}); //{state, valid, args:{values, isValid, errors, setErrors}});
+      //console.log('fyne/ui: Dialog useFyneForm submit', {state,props}); //{state, valid, args:{values, isValid, errors, setErrors}});
       handleSubmit(state); //{values, isValid, errors})
       
     }, 
     cancel: (props)=> {
-      console.log('fyne/ui: Dialog useFyneForm cancel', {state,props}); //{state, valid, args:{values, isValid, errors}});
+      //console.log('fyne/ui: Dialog useFyneForm cancel', {state,props}); //{state, valid, args:{values, isValid, errors}});
       handleCancel(state); //{values, isValid, errors})
       
     }
   });
 
   const clickCancel = (a,b,c)=> {
-    console.log('fyne/ui: clickCancel',{a,b,c,state});
+    //console.log('fyne/ui: clickCancel',{a,b,c,state});
     handleCancel(state);
   };
   const clickSubmit = (a,b,c)=> {
-    console.log('fyne/ui: clickSubmit',{a,b,c,state});
+    //console.log('fyne/ui: clickSubmit',{a,b,c,state});
     //handleSubmit(state);
     submit(state);
   };
 
   useEffect(()=>{
-    console.log('fyne/ui: REVIVE? install', app_name+'__revive')
+    //console.log('fyne/ui: REVIVE? install', app_name+'__revive')
     window[app_name+'__revive'] = ()=> {
       setOpen(true)
     }

@@ -6,7 +6,7 @@ const { on } = window.Hubster;
 import { AppID } from './../fyne/globals'
 const app_name = AppID('inline');
 
-console.log('fyne/ui: LOADED INLINE',{app_name});
+//console.log('fyne/ui: LOADED INLINE',{app_name});
 
 on(
 	'render:' + app_name,

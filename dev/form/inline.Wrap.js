@@ -12,7 +12,7 @@ export const InlineWrap = ({element, ...props}) => {
   // }
 // 
   // const send = () => {
-    // console.log('fyne/ui: InlineWrap.send', {data, errors});
+    // //console.log('fyne/ui: InlineWrap.send', {data, errors});
     // _submit(data);
     // done(data);
   // }

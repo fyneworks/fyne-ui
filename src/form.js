@@ -10,7 +10,7 @@ import { Endpoint } from './network';
 //import { context } from './context';
 
 export const FyneFormAPI = ({context, url}) => {
-	  console.log('fyne/ui: FyneFormAPI', {context,url});
+	  //console.log('fyne/ui: FyneFormAPI', {context,url});
 
       //const base = context.API_BASE;
       //const url = (base || '') + func;

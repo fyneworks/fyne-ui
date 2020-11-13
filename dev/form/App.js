@@ -10,7 +10,7 @@ import './index.scss'
 import { SnackbarProvider } from '@fyne/ui/notify'; //https://material-ui.com/components/snackbars/
 import * as N from '@fyne/ui/notify'; //https://material-ui.com/components/snackbars/
 import n from '@fyne/ui/notify'; //https://material-ui.com/components/snackbars/
-console.log('fyne/ui: SnackbarProvider', {n,N,SnackbarProvider});
+//console.log('fyne/ui: SnackbarProvider', {n,N,SnackbarProvider});
 
 
 const theme = responsiveFontSizes(createMuiTheme({

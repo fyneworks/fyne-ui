@@ -30,7 +30,7 @@ export const options = {
         // url, path and route are supplied to the interceptor
         // request options can be modified and must be returned
         request: async ({ options, url, path, route }) => {
-            console.log('fyne/ui: Fyneworks API intercepted request', { options, url, path, route });
+            //console.log('fyne/ui: Fyneworks API intercepted request', { options, url, path, route });
 
             //if (isExpired(token)) {
             //    token = await getNewToken()
@@ -47,7 +47,7 @@ export const options = {
 
         // every time we make an http request, before getting the response back, this will run
         response: async ({ response }) => {
-            console.log('fyne/ui: Fyneworks API intercepted response', { response });
+            //console.log('fyne/ui: Fyneworks API intercepted response', { response });
 
             const res = response;
 
@@ -64,7 +64,7 @@ export const options = {
 //export const url = context.API_BASE;
 
 export const FyneProvider = ({ url, options, children, ...props}) => {
-    console.log('fyne/ui: FyneProvider INIT', props);
+    //console.log('fyne/ui: FyneProvider INIT', props);
     return (
         <Provider url={url} options={options} {...props}>
             {children}
@@ -75,7 +75,7 @@ export const FyneProvider = ({ url, options, children, ...props}) => {
 export const useFyneAPI = (context, url, dependencies = []) => {
     
     //const url = context.API_BASE + func;
-    console.log('fyne/ui: useFyneAPI', { url, dependencies });
+    //console.log('fyne/ui: useFyneAPI', { url, dependencies });
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -140,7 +140,7 @@ export const useFyneAPI____USEHTTP = (url, dependencies) => {
 
     //const url = context.API_BASE + func;
 
-    console.log('fyne/ui: useFyneAPI', { url, dependencies });
+    //console.log('fyne/ui: useFyneAPI', { url, dependencies });
 
     const { 
         request,

@@ -31,14 +31,14 @@ export const render = ({ele,data,loader=true,...props}) => {
         return result;
     }
 
-    console.log('fyne/ui: HUB INLINE render', data, this, {app_id, ele_id, config, div});
+    //console.log('fyne/ui: HUB INLINE render', data, this, {app_id, ele_id, config, div});
     ThisHub.render([{
         id: app_id,
         ref: random(),
         props: {
             data,
             destroy: (args) => {
-                console.log('fyne/ui: Hub destroy', args);
+                //console.log('fyne/ui: Hub destroy', args);
                 Hub.destroy([app_id]);
             }
         },
@@ -50,7 +50,7 @@ export const render = ({ele,data,loader=true,...props}) => {
           // reasons described here https://github.com/mui-org/material-ui/issues/16223
         }*/,
         onRender: args => {
-            console.log('fyne/ui: HUB INLINE rendered', args);
+            //console.log('fyne/ui: HUB INLINE rendered', args);
         }
     }]);
 }

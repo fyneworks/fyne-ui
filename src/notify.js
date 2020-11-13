@@ -14,25 +14,25 @@ export const Notify = (props) => <MuiAlert elevation={6} variant="filled" {...pr
 export const Alert = (props) => <MuiAlert elevation={6} variant="filled" {...props}/>;
 
 //export const Success = (props) =>{
-//  console.log('fyne/ui: NOTIFY Success', {props});
+//  //console.log('fyne/ui: NOTIFY Success', {props});
 //  return <Alert severity="success" {...props}>{props.children}</Alert>
 //};
 //export const Error = (props) =>{
-//  console.log('fyne/ui: NOTIFY Error', {props});
+//  //console.log('fyne/ui: NOTIFY Error', {props});
 //  return <Alert severity="error" {...props}>{props.children}</Alert>
 //};
 //export const Info = (props) =>{
-//  console.log('fyne/ui: NOTIFY Info', {props});
+//  //console.log('fyne/ui: NOTIFY Info', {props});
 //  return <Alert severity="info" {...props}>{props.children}</Alert>
 //};
 //export const Warning = (props) =>{
-//  console.log('fyne/ui: NOTIFY Warning', {props});
+//  //console.log('fyne/ui: NOTIFY Warning', {props});
 //  return <Alert severity="warning" {...props}>{props.children}</Alert>
 //};
 
   // customized
 export const snackbarActions = ({...snackbarActionsOptions}) => {
-  console.log('fyne/ui: Fyne snackbar with props', snackbarActionsOptions)
+  //console.log('fyne/ui: Fyne snackbar with props', snackbarActionsOptions)
   const { closeSnackbar } = snackbarActionsOptions || {};
   return (key)=> (
       <React.Fragment>
@@ -71,7 +71,7 @@ export const makeNotifier = (
     const notify = (message, runtimeOptions) => {
 
     const options = snackbarOptions(runtimeOptions);
-        console.log('fyne/ui: makeNotifier', 'enqueueSnackbar', {message,runtimeOptions,options})
+        //console.log('fyne/ui: makeNotifier', 'enqueueSnackbar', {message,runtimeOptions,options})
         enqueueSnackbar(
             message,
             {
