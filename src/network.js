@@ -27,17 +27,18 @@ export const serialize = function(obj) {
     return str.join("&");
 };
 
-export const signature = ({license, domain, method, url})=> {
+export const signature = ({ domain, license, apikey, method, url })=> {
     return ''; //signature will go here';
 };
 
 export const headers = ({method, url})=> {
-    const { license, domain } = context;
+    const { domain, license, apikey } = context;
     return {
         "Content-Type": "application/json",
-        domain,
-        license,
-        //signature: signature({license,domain,method,url})
+        domain: domain || '',
+        license: license || '',
+        apikey: apikey || '',
+        signature: signature({ domain, license, apikey, method, url })
     }
 }
 
