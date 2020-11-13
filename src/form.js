@@ -9,12 +9,12 @@ import { Antispam } from './antispam';
 import { Endpoint } from './network';
 //import { context } from './context';
 
-export const FyneFormAPI = (url) => {
-      //console.log('FyneFormAPI', {func});
+export const FyneFormAPI = ({context, url}) => {
+	  //console.log('FyneFormAPI', {context,func});
 
       //const base = context.API_BASE;
       //const url = (base || '') + func;
-      const endpoint = Endpoint(url);
+      const endpoint = Endpoint({context, url});
       
       const submit = (data) => {
 

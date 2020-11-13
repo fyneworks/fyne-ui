@@ -108,10 +108,10 @@ export const post = (url, {...props}) => request(url, { method:POST, ...props })
 export const del = (url, {...props}) => request(url, { method:DEL, ...props });
 export const patch = (url, {...props}) => request(url, { method:PATCH, ...props });
 
-export const Endpoint = (url, context) => ({
-    get: ({...props}) => get(url, props),
-    put: ({...props}) => put(url, props),
-    post: ({...props}) => post(url, props),
-    del: ({...props}) => del(url, props),
-    patch: ({...props}) => patch(url, props),
+export const Endpoint = ({url, context}) => ({
+    get: ({...props}) => get(url, {...props, context}),
+    put: ({...props}) => put(url, {...props, context}),
+    post: ({...props}) => post(url, {...props, context}),
+    del: ({...props}) => del(url, {...props, context}),
+    patch: ({...props}) => patch(url, {...props, context}),
 });

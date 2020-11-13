@@ -7,6 +7,7 @@ const { useEffect } = React;
 
 import CreatableSelect from 'react-select/creatable';
 import { useFyneAPI } from './api';
+import { ParseContext } from './context'
 
 const FIRST_TIME = true;
 
@@ -35,8 +36,9 @@ export const FyneSelect = ({
         console.error("Can't render select, missing k parameter",{isClearable,getParams,addParams,creatable,edition,initialValue,options,value,k,e,url});
         return <React.Fragment/>
     }
+    const context = ParseContext(process.env);
     const endpoint = url || (!!e ? `/api/cms/dropdown/${e}` : null);
-    const { error, loading, get, post } = useFyneAPI(endpoint);
+    const { error, loading, get, post } = useFyneAPI(context, endpoint);
     const [ opts, setOpts ] = useState([]);
 
     const validOption = option => {

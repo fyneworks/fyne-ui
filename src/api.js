@@ -17,8 +17,8 @@ import { headers, Endpoint,
 } from './network';
 
 //import { context } from './context';
-import { ParseContext } from '@fyne/ui/context';
-const context = ParseContext(process.env);
+//import { ParseContext } from '@fyne/ui/context';
+//const context = ParseContext(process.env);
 
 export const options = {
     
@@ -72,7 +72,7 @@ export const FyneProvider = ({...props}) => {
     )
 };
 
-export const useFyneAPI = (url, dependencies = []) => {
+export const useFyneAPI = (context, url, dependencies = []) => {
     
     //const url = context.API_BASE + func;
     //console.log('useFyneAPI', { url, dependencies });
@@ -84,7 +84,7 @@ export const useFyneAPI = (url, dependencies = []) => {
         setLoading(true);
 
         const method = options.method || GET;
-        const endpoint = Endpoint(url);
+        const endpoint = Endpoint({context, url});
         const request = endpoint[method];
 
         console.log('useFyneAPI run', {env: process.env, method, options, url, endpoint, request});
