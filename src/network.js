@@ -55,7 +55,7 @@ export const request = (
         context = null,
         ...options
     }) => {
-    //console.log('Fyne request', {url, method, body, options});
+    console.log('fyne/ui: Fyne request', {url, method, body, options});
 
     return new Promise((resolve,reject)=>{
 
@@ -88,7 +88,7 @@ export const request = (
 
 
         .then(res=>{
-            //console.log('Fyne request resp!', res, {url, method, body, options, queryStr, endpoint});
+            console.log('fyne/ui: Fyne request resp!', res, {url, method, body, options, queryStr, endpoint});
             
             resolve(res); //({ status:200,success:true,error:null});
         })

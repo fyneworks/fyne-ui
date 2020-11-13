@@ -26,19 +26,19 @@ export const form = FyneFormAPI({context,url});
 
 export const post = data => {
 
-    //console.log('Form post', data);
+    console.log('fyne/ui: Form post', data);
 
     return new Promise((resolve,reject)=>{
         
-        //console.log('Form post data', data);
+        console.log('fyne/ui: Form post data', data);
 
         form.post(data)
         .then(res=>{
-            //console.log('form post res', res);
+            console.log('fyne/ui: form post res', res);
             resolve(res);
         })
         .catch(err=>{
-            //console.log('form post err', err);
+            console.log('fyne/ui: form post err', err);
             reject(err);
         })
     })
@@ -58,12 +58,12 @@ export const Form = ({
   const notifier = !FyneHook && makeNotifier(useSnackbar());
 
   const onSubmit = useCallback((values,Formik) => {
-    //console.log('form submit', {values,Formik,validationSchema});
+    console.log('fyne/ui: form submit', {values,Formik,validationSchema});
 
     const {isValid,errors,touched,dirty,setTouched,setErrors} = Formik;
 
     if(!!FyneHook){
-      //console.log('form submit with FyneHook', {values,valid,errors,validationSchema});
+      console.log('fyne/ui: form submit with FyneHook', {values,valid,errors,validationSchema});
       Formik.submit({values,validationSchema,isValid,errors,touched,dirty,setTouched,setErrors})
 
       return;
@@ -73,15 +73,15 @@ export const Form = ({
     
         post(values)
         .then( res=> {
-          //console.log('form submit', { res, values });
+          console.log('fyne/ui: form submit', { res, values });
           notifier.success('This is a success message!');//, { variant:"success" });
         })
         .catch( err=> {
-          //console.log('form submit', { err, values });
+          console.log('fyne/ui: form submit', { err, values });
           notifier.error('Could not submit form');//, { variant:"error" });
         })
         .finally((res)=>{
-          //console.log('form finally', { res, values });
+          console.log('fyne/ui: form finally', { res, values });
           setSubmitting(false); // https://jaredpalmer.com/formik/docs/guides/form-submission
         })
 
@@ -108,7 +108,7 @@ export const Form = ({
     setTouched,
     setValues
   } = Formik;
-  //console.log('Form', {isValid, FyneHook, Formik});
+  console.log('fyne/ui: Form', {isValid, FyneHook, Formik});
   
   const handleChange = useCallback((prop, value) => {
     console.log( 'Form Updated', prop, value, values );
@@ -122,7 +122,7 @@ export const Form = ({
 
 
   const addItem = ((newItem)=> { //useCallback
-    //console.log('addItem', {newItem});
+    console.log('fyne/ui: addItem', {newItem});
     const newItemPrepared = {
       ...itemDefaultProps,
       ...newItem,
@@ -156,7 +156,7 @@ export const Form = ({
       }
     });
 
-    //console.log('changeItem DONE, newItems', {newItems});
+    console.log('fyne/ui: changeItem DONE, newItems', {newItems});
     handleChange('items', newItems)
   }, [ values ]);
 
@@ -204,7 +204,7 @@ useEffect(()=>{
     modelsApi.get({"extra-fields":"page,varprice,fixprice"}),
     extrasApi.get({"extra-fields":"page,varprice,fixprice"}),
   ]).then(([products,prices,models,extras])=>{
-    //console.log('Promise.all', {products,prices,models,extras});
+    console.log('fyne/ui: Promise.all', {products,prices,models,extras});
     setCatalogue({ready:true, products,prices,models,extras})
   })
 }, [])
@@ -312,7 +312,7 @@ console.log('Render form: message', values.message, touched.message, errors.mess
                 autoOk={true}
                 value={values.date} 
                 onChange={value=>{
-                  //console.log('CHANGE', {value});
+                  console.log('fyne/ui: CHANGE', {value});
                   handleChange('date',value.format('yyyy-MM-DD'))
                 }}
                 fullWidth margin="dense"

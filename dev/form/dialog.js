@@ -6,13 +6,13 @@ const { on } = window.Hubster;
 import { AppID } from './../fyne/globals';
 export const app_name = AppID('dialog');
 
-//console.log('LOADED DIALOG',{app_name});
+console.log('fyne/ui: LOADED DIALOG',{app_name});
 
 on(
 	'render:' + app_name,
 	({ onRender = () => {}, element, ...props } = {}) => {
 
-		//console.log("DIALOG render", {element, props, onRender});
+		console.log("fyne/ui: DIALOG render", {element, props, onRender});
 		
 		render({...props, FyneApp, onRender, element});
 		

@@ -10,7 +10,7 @@ import './index.scss'
 import { SnackbarProvider } from '@fyne/ui/notify'; //https://material-ui.com/components/snackbars/
 import * as N from '@fyne/ui/notify'; //https://material-ui.com/components/snackbars/
 import n from '@fyne/ui/notify'; //https://material-ui.com/components/snackbars/
-//console.log('SnackbarProvider', {n,N,SnackbarProvider});
+console.log('fyne/ui: SnackbarProvider', {n,N,SnackbarProvider});
 
 
 const theme = responsiveFontSizes(createMuiTheme({
@@ -38,7 +38,7 @@ export const App = ({
         //insertionPoint: element
     });
 
-    //console.log("App", {data, FyneApp, onRender, element, jss, props,StylesProvider,ThemeProvider,SnackbarProvider,FyneApp});
+    console.log("fyne/ui: App", {data, FyneApp, onRender, element, jss, props,StylesProvider,ThemeProvider,SnackbarProvider,FyneApp});
     
     return (
         <React.Fragment>
@@ -55,14 +55,14 @@ export const App = ({
 }
 
 export const destroy = ({ onDestroy = () => {}, element, ...props } = {}) => {
-    //console.log("Fyne form destroy", {onDestroy, element, props});
+    console.log("fyne/ui: Fyne form destroy", {onDestroy, element, props});
 	element && ReactDOM.unmountComponentAtNode(element)
 	onDestroy()
 }
 
 export const render = ({ data, FyneApp = React.Fragment, onRender = () => {}, element, ...props } = {}) => {
 
-    //console.log("render()", {data, props});
+    console.log("fyne/ui: render()", {data, props});
 
     ReactDOM.render(
         <App

@@ -10,7 +10,7 @@ import { Endpoint } from './network';
 //import { context } from './context';
 
 export const FyneFormAPI = ({context, url}) => {
-	  //console.log('FyneFormAPI', {context,func});
+	  console.log('fyne/ui: FyneFormAPI', {context,func});
 
       //const base = context.API_BASE;
       //const url = (base || '') + func;
@@ -59,7 +59,7 @@ export const useFyneForm = (instanceId, {
 	});
 
     const FyneForm = useCallback(({...moreprops})=> {
-		//console.log("Fyne Form render in", {state,moreprops,Form})
+		console.log("fyne/ui: Fyne Form render in", {state,moreprops,Form})
 
 		return (
 			<Form 

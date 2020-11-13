@@ -3,8 +3,8 @@ import { ParseContext } from '@fyne/ui/context';
 
 import Hubster from 'hubster-js';
 const { createHub } = Hubster;
-//console.log('Hubster', Hubster);
-//console.log('createHub', createHub);
+console.log('fyne/ui: Hubster', Hubster);
+console.log('fyne/ui: createHub', createHub);
 
 const context = ParseContext(process.env);
 
@@ -26,7 +26,7 @@ export const fyneAppConfig = ({app_id,ele_id,file}) => {
 };
 
 export const fyneApp = ({app_id,ele_id,script,...props}) => {
-    //console.log('fyneApp >>>>>>>>>>>>>', {context,app_id,ele_id,script,props});
+    console.log('fyne/ui: fyneApp >>>>>>>>>>>>>', {context,app_id,ele_id,script,props});
 
     const config = {
         app_id,
@@ -37,6 +37,6 @@ export const fyneApp = ({app_id,ele_id,script,...props}) => {
 
     const app = fyneAppConfig(config);
     
-    //console.log('fyneApp', {context,app_id,app});
+    console.log('fyne/ui: fyneApp', {context,app_id,app});
     return app;
 }

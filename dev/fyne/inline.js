@@ -13,7 +13,7 @@ let isBound = false;
 export const config = fyneApp({app_id,ele_id,script});
 
 export const render = ({ele,data,loader=true,...props}) => {
-    //console.log("INLINE render", {ele,data,props});
+    console.log("fyne/ui: INLINE render", {ele,data,props});
     
     const div = ele || document.getElementById(ele_id);
     if(!div){
@@ -31,14 +31,14 @@ export const render = ({ele,data,loader=true,...props}) => {
         return result;
     }
 
-    //console.log('HUB INLINE render', data, this, {app_id, ele_id, config, div});
+    console.log('fyne/ui: HUB INLINE render', data, this, {app_id, ele_id, config, div});
     ThisHub.render([{
         id: app_id,
         ref: random(),
         props: {
             data,
             destroy: (args) => {
-                //console.log('Hub destroy', args);
+                console.log('fyne/ui: Hub destroy', args);
                 Hub.destroy([app_id]);
             }
         },
@@ -50,7 +50,7 @@ export const render = ({ele,data,loader=true,...props}) => {
           // reasons described here https://github.com/mui-org/material-ui/issues/16223
         }*/,
         onRender: args => {
-            //console.log('HUB INLINE rendered', args);
+            console.log('fyne/ui: HUB INLINE rendered', args);
         }
     }]);
 }

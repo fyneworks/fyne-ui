@@ -25,19 +25,19 @@ export const render = (data) => {
         isBound = true;
     }
 
-    //console.log('REVIVE? consume', app_id+'__revive', window[app_id+'__revive'])
+    console.log('fyne/ui: REVIVE? consume', app_id+'__revive', window[app_id+'__revive'])
     if(!!window[app_id+'__revive']){
-        //console.log("Fyne don't render, just show again");
+        console.log("fyne/ui: Fyne don't render, just show again");
         window[app_id+'__revive']()
     }
     
-    //console.log('HUB DIALOG render', data, this, {app_id, ele_id, config, div});
+    console.log('fyne/ui: HUB DIALOG render', data, this, {app_id, ele_id, config, div});
     ThisHub.render([{
         id: app_id,
         props: {
             data,
             destroy: (args) => {
-                //console.log('Hub destroy', args);
+                console.log('fyne/ui: Hub destroy', args);
                 Hub.destroy([app_id]);
             }
         },
@@ -48,7 +48,7 @@ export const render = (data) => {
           // reasons described here https://github.com/mui-org/material-ui/issues/16223
         },
         onRender: args => {
-            //console.log('HUB DIALOG rendered', args);
+            console.log('fyne/ui: HUB DIALOG rendered', args);
         }
     }]);
 }
