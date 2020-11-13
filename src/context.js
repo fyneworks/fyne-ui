@@ -80,7 +80,6 @@ export const ParseContext = (app_env = lib_env, defaults, overrides)=> {
             edition: scriptProp('edition') || constant('edition',cur_env) || setting('edition') || window['EDITION'],
             timezone: scriptProp('timezone') || constant('timezone',cur_env) || setting('timezone'), //  window['FWX_TIMEZONE'] || dataset.timezone,
             license: scriptProp('license') || constant('license',cur_env) || setting('license'),
-            apikey: scriptProp('apikey') || constant('apikey',cur_env) || setting('apikey'),
             domain: scriptProp('domain') || constant('domain',cur_env) || setting('domain'), //  window['FWX_DOMAIN'] || dataset.domain,
             apikey: scriptProp('apikey') || constant('apikey',cur_env) || setting('apikey'), //  window['FWX_APIKEY'] || dataset.apikey,
             base: scriptProp('base') || constant('base',cur_env) || setting('base'),
@@ -118,9 +117,8 @@ export const ParseContext = (app_env = lib_env, defaults, overrides)=> {
     return context;
 };
 
-export const context = ParseContext();
-
-export default context;
+//export const context = ParseContext();
+//export default context;
 
 //console.log('FYNEWORKS CONTEXT RESULT (processed process.env and others)', context);
 

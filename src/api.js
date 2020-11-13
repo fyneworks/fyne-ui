@@ -7,7 +7,7 @@ const { useEffect } = React;//import { useEffect } from 'react';
 const { useCallback } = React;//import { useCallback } from 'react';
 
 import useFetch, { Provider } from 'use-http'
-import { context } from './context';
+
 import { headers, Endpoint,
     GET,
     PUT,
@@ -15,6 +15,10 @@ import { headers, Endpoint,
     DEL,
     PATCH,
 } from './network';
+
+//import { context } from './context';
+import { ParseContext } from '@fyne/ui/context';
+const context = ParseContext(process.env);
 
 export const options = {
     
@@ -83,7 +87,7 @@ export const useFyneAPI = (url, dependencies = []) => {
         const endpoint = Endpoint(url);
         const request = endpoint[method];
 
-        console.log('useFyneAPI run', {method, options, url, endpoint, request});
+        console.log('useFyneAPI run', {env: process.env, method, options, url, endpoint, request});
 
         return new Promise((resolve, reject) => 
             request(options)

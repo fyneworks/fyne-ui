@@ -1,10 +1,12 @@
-import { context } from './context';
+//import { context } from './context';
+import { ParseContext } from '@fyne/ui/context';
 
 import Hubster from 'hubster-js';
 const { createHub } = Hubster;
 //console.log('Hubster', Hubster);
 //console.log('createHub', createHub);
 
+const context = ParseContext(process.env);
 
 export const fyneHub = createHub;
 

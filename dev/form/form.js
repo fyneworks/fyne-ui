@@ -231,8 +231,8 @@ console.log('Render form: message', values.message, touched.message, errors.mess
 
 
           <FyneSelect 
-                //label="Program"
-                //k="program"
+                label="Program"
+                k="program"
                 name="program"
                 e="invy.programs"
                 url={context.API_BASE+"/dropdown/invy.programs"}

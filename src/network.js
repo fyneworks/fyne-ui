@@ -3,7 +3,10 @@
 // https://github.com/github/fetch
 import 'whatwg-fetch'
 
-import { context } from './context';
+//import { context } from './context';
+import { ParseContext } from '@fyne/ui/context';
+//const context = ParseContext(process.env);
+
 
 export const GET = "get";
 export const PUT = "put";
@@ -31,7 +34,7 @@ export const signature = ({ domain, license, apikey, method, url })=> {
     return ''; //signature will go here';
 };
 
-export const headers = ({method, url})=> {
+export const headers = ({method, url, context})=> {
     const { domain, license, apikey } = context;
     return {
         "Content-Type": "application/json",
@@ -43,7 +46,15 @@ export const headers = ({method, url})=> {
 }
 
 
-export const request = (url, {method = GET, body = null, query = {}, ...options}) => {
+export const request = (
+    url, 
+    {
+        method = GET, 
+        body = null, 
+        query = {}, 
+        context = null,
+        ...options
+    }) => {
     //console.log('Fyne request', {url, method, body, options});
 
     return new Promise((resolve,reject)=>{
@@ -51,7 +62,8 @@ export const request = (url, {method = GET, body = null, query = {}, ...options}
         const queryStr = query && serialize(query);
         const endpoint = query ? url +'?'+ queryStr : url;
 
-        //console.log('Fyne request fetch', {url, method, body, options, queryStr, endpoint});
+        context = context || ParseContext(process.env);
+        console.log('Fyne request fetch', {env: process.env, url, method, body, options, queryStr, endpoint, context});
 
         fetch(
             endpoint,
@@ -63,7 +75,7 @@ export const request = (url, {method = GET, body = null, query = {}, ...options}
                     : { body: JSON.stringify(body) }
                 ),
                 headers: {
-                    ...headers({ method, url }),
+                    ...headers({ method, url, context }),
                     ...(options.headers || {})
                 },
                 ...options
@@ -96,7 +108,7 @@ export const post = (url, {...props}) => request(url, { method:POST, ...props })
 export const del = (url, {...props}) => request(url, { method:DEL, ...props });
 export const patch = (url, {...props}) => request(url, { method:PATCH, ...props });
 
-export const Endpoint = (url) => ({
+export const Endpoint = (url, context) => ({
     get: ({...props}) => get(url, props),
     put: ({...props}) => put(url, props),
     post: ({...props}) => post(url, props),
