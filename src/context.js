@@ -83,7 +83,7 @@ export const ParseContext = (app_env = lib_env, defaults, overrides)=> {
             domain: scriptProp('domain') || constant('domain',cur_env) || setting('domain'), //  window['FWX_DOMAIN'] || dataset.domain,
             apikey: scriptProp('apikey') || constant('apikey',cur_env) || setting('apikey'), //  window['FWX_APIKEY'] || dataset.apikey,
             base: scriptProp('base') || constant('base',cur_env) || setting('base'),
-            path: scriptProp('API_PATH') || constant('API_PATH',cur_env) || setting('API_PATH') || '/api',
+            path: scriptProp('API_PATH') || constant('API_PATH',cur_env) || setting('API_PATH') || scriptProp('path') || constant('path',cur_env) || setting('path') || '/api',
             cur: scriptProp('cur') || constant('cur',cur_env) || setting('cur'), //  window['FWX_CUR'] || dataset.cur,
             cursym: scriptProp('cursym') || constant('cursym',cur_env) || setting('cursym'), //  window['FWX_CURSYM'] || dataset.cursym,
             curdec: scriptProp('curdec') || constant('curdec',cur_env) || setting('curdec'), //  window['FWX_CURDEC'] || dataset.curdec,
