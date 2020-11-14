@@ -60,11 +60,11 @@ export const scriptProp = n => {
 ////console.log('fyne/ui: Fyneworks config EnvironmentConstants()', EnvironmentConstants())
 
 export const ParseContext = (app_env = lib_env, defaults, overrides)=> {
-    console.log('ParseContext invoked', {app_env,defaults,overrides});
+    //console.log('fyne/ui: ParseContext invoked', {app_env,defaults,overrides});
 
     const cur_env = EnvironmentConstants(app_env);
 
-    console.log('ParseContext invoked', {cur_env});
+    //console.log('fyne/ui: ParseContext invoked', {cur_env});
 
     let context = Object.assign(
         {}, 
@@ -112,7 +112,7 @@ export const ParseContext = (app_env = lib_env, defaults, overrides)=> {
 
     context.API_BASE = context.base +''+ context.path; // + '/';
 
-    console.log('ParseContext result', {context,cur_env,app_env,defaults,overrides});
+    //console.log('fyne/ui: ParseContext result', {context,cur_env,app_env,defaults,overrides});
 
     return context;
 };
