@@ -58,7 +58,7 @@ export const scriptProp = n => {
 
 
 ////console.log('fyne/ui: Fyneworks config EnvironmentConstants()', EnvironmentConstants())
-
+let warned = false;
 export const ParseContext = (app_env = lib_env, defaults, overrides)=> {
     //console.log('fyne/ui: ParseContext invoked', {app_env,defaults,overrides});
 
@@ -103,7 +103,10 @@ export const ParseContext = (app_env = lib_env, defaults, overrides)=> {
 
     if(!context.base){
         if(context.domain){
-            console.warn("fyne/ui: ParseContext base was undefined, assuem it's https://domain");
+            if(!warned){
+                warned = true;
+                console.warn("fyne/ui: ParseContext base was undefined, assume it's https://domain", {assumed_base:'https://' + context.domain,app_env,defaults,overrides,cur_env,context,edition,timezone,license,domain,apikey,base,path,cur,cursym,curdec});
+            }
             context.base = 'https://' + context.domain;
         }
     }
