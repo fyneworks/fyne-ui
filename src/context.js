@@ -105,7 +105,8 @@ export const ParseContext = (app_env = lib_env, defaults, overrides)=> {
         if(context.domain){
             if(!warned){
                 warned = true;
-                console.warn("fyne/ui: ParseContext base was undefined, assume it's https://domain", {assumed_base:'https://' + context.domain,app_env,defaults,overrides,cur_env,context,edition,timezone,license,domain,apikey,base,path,cur,cursym,curdec});
+                console.warn("fyne/ui: ParseContext base was undefined, assume it's https://domain", {assumed_base:'https://' + context.domain,app_env,defaults,overrides,cur_env,context});
+                // edition,timezone,license,domain,apikey,base,path,cur,cursym,curdec
             }
             context.base = 'https://' + context.domain;
         }
