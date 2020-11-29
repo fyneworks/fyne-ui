@@ -63,7 +63,7 @@ export const request = (
         const endpoint = query ? url +'?'+ queryStr : url;
 
         context = context || ParseContext(process.env);
-        console.log('Fyne request fetch', {env: process.env, url, method, body, options, queryStr, endpoint, context});
+        //console.log('Fyne request fetch', {env: process.env, url, method, body, options, queryStr, endpoint, context});
 
         fetch(
             endpoint,
