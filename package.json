@@ -108,7 +108,7 @@
     "use-http": "^1.0.10",
     "webpack": "^4.44.0",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.10.3",
+    "webpack-dev-server": "^5.2.1",
     "whatwg-fetch": "^3.0.0",
     "yup": "^0.29.0"
   },
