@@ -98,7 +98,7 @@
     "react-dom": "^16.13.1",
     "react-hook-form": "^5.6.1",
     "react-loading-overlay": "^1.0.1",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "^5.0.1",
     "react-select": "^3.1.0",
     "react-spinners": "^0.8.3",
     "requestidlecallback-polyfill": "^1.0.2",
@@ -108,7 +108,7 @@
     "use-http": "^1.0.10",
     "webpack": "^4.44.0",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.10.3",
+    "webpack-dev-server": "^5.2.2",
     "whatwg-fetch": "^3.0.0",
     "yup": "^0.29.0"
   },
